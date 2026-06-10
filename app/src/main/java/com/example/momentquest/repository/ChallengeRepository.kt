@@ -153,6 +153,42 @@ class ChallengeRepository {
         list
     }
 
+    suspend fun deleteMemory(context: Context, challengeId: String): Unit = withContext(Dispatchers.IO) {
+        // Find memory photo paths to delete files first
+        val memories = getMemories(context, challengeId)
+        for (memory in memories) {
+            FileStorageHelper.deleteFile(memory.photoUrl)
+        }
+        
+        val dbHelper = DatabaseHelper(context)
+        val db = dbHelper.writableDatabase
+        
+        db.beginTransaction()
+        try {
+            // 1. Delete memory
+            db.delete(
+                DatabaseHelper.TABLE_MEMORIES,
+                "${DatabaseHelper.COLUMN_MEMORY_CHALLENGE_ID} = ?",
+                arrayOf(challengeId)
+            )
+            
+            // 2. Reset challenge status to PENDING
+            val values = ContentValues().apply {
+                put(DatabaseHelper.COLUMN_CHALLENGE_STATUS, "PENDING")
+            }
+            db.update(
+                DatabaseHelper.TABLE_CHALLENGES,
+                values,
+                "${DatabaseHelper.COLUMN_ID} = ?",
+                arrayOf(challengeId)
+            )
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+    }
+
     suspend fun deleteChallenge(context: Context, challengeId: String): Unit = withContext(Dispatchers.IO) {
         // Find memory photo paths to delete files first
         val memories = getMemories(context, challengeId)

@@ -65,12 +65,19 @@ class ChallengeDetailActivity : AppCompatActivity() {
             bottomSheet.show(supportFragmentManager, "AddMemoryBottomSheet")
         }
 
-        binding.btnShareMemory.setOnClickListener {
-            Toast.makeText(this, "Share coming soon!", Toast.LENGTH_SHORT).show()
+        binding.btnDeleteMemory.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Delete Memory")
+                .setMessage("Are you sure you want to delete this memory? The challenge will return to pending.")
+                .setPositiveButton("Delete") { _, _ ->
+                    viewModel.deleteMemory(challengeId)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
 
-        binding.btnEditMemory.setOnClickListener {
-            Toast.makeText(this, "Edit Memory coming soon!", Toast.LENGTH_SHORT).show()
+        binding.btnShareMemory.setOnClickListener {
+            Toast.makeText(this, "Share coming soon!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -87,13 +94,12 @@ class ChallengeDetailActivity : AppCompatActivity() {
 
         viewModel.saveSuccess.observe(this) { success ->
             if (success) {
-                // Challenge deleted or completed. If deleted, finish activity.
-                // If completed, the viewmodel will reload the details which changes status,
-                // so we don't finish unless deleted. Let's check: did we delete?
-                // Let's check: if details is null, it was deleted!
-                if (viewModel.challengeDetails.value == null) {
+                val challenge = viewModel.challengeDetails.value
+                if (challenge == null) {
                     Toast.makeText(this, "Challenge deleted successfully", Toast.LENGTH_SHORT).show()
                     finish()
+                } else if (challenge.status == "PENDING") {
+                    Toast.makeText(this, "Memory deleted!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Challenge completed!", Toast.LENGTH_SHORT).show()
                 }
