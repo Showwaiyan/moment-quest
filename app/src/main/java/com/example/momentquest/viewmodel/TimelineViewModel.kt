@@ -89,4 +89,20 @@ class TimelineViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
+
+    fun deleteMoment(momentId: String) {
+        _isLoading.value = true
+        _error.value = null
+        viewModelScope.launch {
+            try {
+                val context = getApplication<Application>().applicationContext
+                momentRepository.deleteMoment(context, momentId)
+                loadTimeline()
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Failed to delete moment"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 }

@@ -18,7 +18,8 @@ import java.util.Date
 import java.util.Locale
 
 class TimelineAdapter(
-    private val onMarkDoneClick: (String) -> Unit
+    private val onMarkDoneClick: (String) -> Unit,
+    private val onMomentClick: (com.example.momentquest.model.Moment) -> Unit
 ) : ListAdapter<TimelineItem, RecyclerView.ViewHolder>(TimelineDiffCallback()) {
 
     companion object {
@@ -129,6 +130,10 @@ class TimelineAdapter(
                     .into(binding.ivPhoto)
             } else {
                 binding.imageContainer.visibility = View.GONE
+            }
+
+            binding.cardMoment.setOnClickListener {
+                onMomentClick(moment)
             }
 
             if (moment.latitude != null && moment.longitude != null) {
