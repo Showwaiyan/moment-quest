@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/surface"
+    android:padding="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <!-- Drag Handle -->
+    <View
+        android:layout_width="32dp"
+        android:layout_height="4dp"
+        android:background="@color/outline"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Header Row -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Complete Challenge &amp; Add Memory"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:textColor="@color/on_surface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Close" />
+    </RelativeLayout>
+
+    <!-- Reflection Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Reflection"
+        app:boxStrokeColor="@color/primary"
+        app:hintTextColor="@color/primary"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="top"
+            android:textColor="@color/on_surface"
+            android:fontFamily="@font/be_vietnam_pro"
+            android:inputType="textMultiLine|textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Photo Selector Box -->
+    <FrameLayout
+        android:id="@+id/photoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/card_background"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/photoPlaceholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_camera"
+                app:tint="@color/outline"
+                android:contentDescription="Camera" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Photo (Camera or Gallery)"
+                android:textColor="@color/outline"
+                android:fontFamily="@font/be_vietnam_pro"
+                android:textSize="12sp"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivPhotoPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:contentDescription="Photo Preview" />
+
+        <LinearLayout
+            android:id="@+id/photoActions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/btnRemovePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove"
+                android:textColor="@color/error"
+                android:fontFamily="@font/space_grotesk"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:padding="4dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- GPS Location Banner -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/surface_container"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location"
+                app:tint="@color/tertiary"
+                android:contentDescription="Location Pin" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location Auto-Detected"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLocationCoords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fetching GPS coordinates..."
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Green Dot -->
+            <View
+                android:id="@+id/gpsStatusDot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/card_background"
+                android:backgroundTint="#FF4CAF50" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Lock In / Complete Button -->
+    <Button
+        android:id="@+id/btnComplete"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Lock in Memory &amp; Complete"
+        android:background="@drawable/button_primary"
+        app:backgroundTint="@color/tertiary"
+        android:textColor="@color/on_tertiary"
+        android:fontFamily="@font/space_grotesk"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+</LinearLayout>

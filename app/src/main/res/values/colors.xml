@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Stitch Joyful Mode Branding Colors -->
+    <color name="primary">#B60058</color>
+    <color name="primary_container">#E11170</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_fixed">#FFD9E0</color>
+
+    <color name="secondary">#705D00</color>
+    <color name="secondary_container">#FCD400</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_secondary_container">#6E5C00</color>
+
+    <color name="tertiary">#00685F</color>
+    <color name="tertiary_container">#008379</color>
+    <color name="on_tertiary">#FFFFFF</color>
+
+    <color name="background">#FCF8F9</color>
+    <color name="on_background">#1B1B1C</color>
+
+    <color name="surface">#FCF8F9</color>
+    <color name="on_surface">#1B1B1C</color>
+    <color name="on_surface_variant">#5B3F46</color>
+    
+    <color name="surface_container">#F0EDEE</color>
+    <color name="surface_container_low">#F6F3F4</color>
+    <color name="surface_container_high">#EAE7E8</color>
+    <color name="surface_container_highest">#E5E2E3</color>
+    <color name="surface_container_lowest">#FFFFFF</color>
+
+    <color name="error">#BA1A1A</color>
+    <color name="error_container">#FFDAD6</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="on_error_container">#93000A</color>
+
+    <color name="outline">#8F6F76</color>
+    <color name="outline_variant">#E3BDC5</color>
+</resources>

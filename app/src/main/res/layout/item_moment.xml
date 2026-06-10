@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp">
+
+    <!-- Timeline Indicator Line on Left -->
+    <View
+        android:id="@+id/timelineLine"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/outline_variant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="19dp"/>
+
+    <!-- Timeline Circle on Left (Camera Icon inside) -->
+    <FrameLayout
+        android:id="@+id/timelineDotContainer"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/button_primary"
+        app:layout_constraintTop_toTopOf="@id/cardMoment"
+        app:layout_constraintBottom_toTopOf="@id/cardMoment"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:translationY="24dp"
+        android:elevation="2dp">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_camera"
+            app:tint="@color/on_primary"
+            android:contentDescription="Camera Icon" />
+    </FrameLayout>
+
+    <!-- Main Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMoment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/surface_container_lowest"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Top Image and Mood Tag overlay -->
+            <FrameLayout
+                android:id="@+id/imageContainer"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Moment Image" />
+
+                <TextView
+                    android:id="@+id/tvMoodOverlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reflective"
+                    android:textColor="@color/on_primary"
+                    android:background="@drawable/card_background"
+                    android:backgroundTint="@color/primary"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="12dp"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/space_grotesk" />
+            </FrameLayout>
+
+            <!-- Text Content -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title & Relative Time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Spontaneous Sunset Walk"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/on_surface"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 hours ago"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="12sp"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <!-- Description -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ran into a gorgeous sunset while walking by the shore. Felt so peaceful."
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingMultiplier="1.2" />
+
+                <!-- Location Badge -->
+                <LinearLayout
+                    android:id="@+id/locationLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_background"
+                    android:backgroundTint="@color/primary_fixed"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_location"
+                        app:tint="@color/primary"
+                        android:contentDescription="Location Icon" />
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3.1390° N, 101.6869° E"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/primary"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

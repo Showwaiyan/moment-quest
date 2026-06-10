@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.activity.ChallengeDetailActivity">
+
+    <!-- Top AppBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/surface"
+            app:contentInsetStart="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_arrow_back"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/primary"
+                    android:contentDescription="Back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Challenge Details"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_delete"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/error"
+                    android:contentDescription="Delete Challenge" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toTopOf="@id/footerActions">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvChallengeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Go to the beach"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:textColor="@color/on_surface"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:lineSpacingMultiplier="1.1" />
+
+            <!-- Tags (Category & Status) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <!-- Category Tag -->
+                <LinearLayout
+                    android:id="@+id/categoryTagLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_background"
+                    android:backgroundTint="@color/primary_fixed"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:layout_marginEnd="8dp">
+
+                    <ImageView
+                        android:id="@+id/ivCategoryIcon"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_flag"
+                        app:tint="@color/primary"
+                        android:layout_marginEnd="6dp"
+                        android:contentDescription="Category Icon" />
+
+                    <TextView
+                        android:id="@+id/tvChallengeCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TRAVEL"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/primary"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
+                </LinearLayout>
+
+                <!-- Status Tag -->
+                <LinearLayout
+                    android:id="@+id/statusTagLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_background"
+                    android:backgroundTint="@color/surface_container_highest"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp">
+
+                    <TextView
+                        android:id="@+id/tvChallengeStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PENDING"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Set Date & Deadline Date -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_timeline"
+                        app:tint="@color/outline"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Calendar" />
+
+                    <TextView
+                        android:id="@+id/tvSetDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set on Jun 1, 2026"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:textColor="@color/outline"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/deadlineLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_timeline"
+                        app:tint="@color/outline"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Calendar" />
+
+                    <TextView
+                        android:id="@+id/tvDeadlineDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Due on Jun 15, 2026"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:textColor="@color/outline"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/surface_container_highest"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- COMPLETED MEMORY SECTION -->
+            <LinearLayout
+                android:id="@+id/completedMemorySection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Captured Memory"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textColor="@color/on_surface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Photo Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMemoryPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="20dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp">
+
+                        <ImageView
+                            android:id="@+id/ivMemoryPhoto"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_camera"
+                            android:contentDescription="Memory Photo" />
+
+                        <!-- Shadow Gradient -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:background="@drawable/card_background"
+                            android:backgroundTint="#80000000" />
+
+                        <!-- Core Memory Overlay -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/card_background"
+                            android:backgroundTint="#B3FCF8F9"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="6dp"
+                            android:layout_gravity="bottom|start"
+                            android:layout_margin="16dp">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_flag"
+                                app:tint="@color/primary"
+                                android:layout_marginEnd="6dp"
+                                android:contentDescription="Heart" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Core Memory"
+                                android:fontFamily="@font/space_grotesk"
+                                android:textColor="@color/on_surface"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Notes Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp"
+                    app:cardBackgroundColor="@color/surface_container_low"
+                    android:layout_marginBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="“"
+                            android:fontFamily="@font/plus_jakarta_sans"
+                            android:textColor="@color/outline_variant"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="-10dp" />
+
+                        <TextView
+                            android:id="@+id/tvMemoryNotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Memory notes..."
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="15sp"
+                            android:lineSpacingMultiplier="1.2" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Location Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    android:layout_marginBottom="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/card_background"
+                            android:backgroundTint="@color/primary_container"
+                            android:layout_marginEnd="16dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvLocationName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Recorded Location"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvLocationCoords"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GPS Coordinates"
+                                android:fontFamily="@font/space_grotesk"
+                                android:textColor="@color/outline"
+                                android:textSize="11sp"
+                                android:layout_marginTop="2dp"
+                                android:background="@color/surface_container_highest"
+                                android:paddingHorizontal="6dp"
+                                android:paddingVertical="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Completed Date -->
+                <TextView
+                    android:id="@+id/tvCompletedDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Completed on Jun 10, 2026"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/outline"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp" />
+            </LinearLayout>
+
+            <!-- PENDING PLACEHOLDER SECTION -->
+            <LinearLayout
+                android:id="@+id/pendingSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="40dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_flag"
+                    app:tint="@color/outline_variant"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="Flag" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This challenge is still pending"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap 'Mark Complete' to upload photos, notes, and log your achievement."
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/outline"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="24dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Footer Actions (Fixed at the bottom) -->
+    <FrameLayout
+        android:id="@+id/footerActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:elevation="8dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- When Pending: Mark Complete Button -->
+        <Button
+            android:id="@+id/btnMarkComplete"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Mark Complete"
+            android:fontFamily="@font/space_grotesk"
+            android:textColor="@color/on_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_primary"
+            android:visibility="visible" />
+
+        <!-- When Completed: Share & Edit buttons -->
+        <LinearLayout
+            android:id="@+id/completedFooterButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnShareMemory"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="Share Memory"
+                android:fontFamily="@font/space_grotesk"
+                android:textColor="@color/on_surface"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:background="@drawable/button_outlined"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnEditMemory"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="Edit Memory"
+                android:fontFamily="@font/space_grotesk"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:background="@drawable/button_outlined"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

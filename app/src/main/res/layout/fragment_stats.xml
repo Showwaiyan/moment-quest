@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top AppBar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Journey"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:textColor="@color/on_surface"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnSettings"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_settings"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="Settings" />
+        </RelativeLayout>
+
+        <!-- Stats Overview Cards Grid -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginBottom="24dp">
+
+            <!-- Card 1: Challenges Set -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_container_lowest">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvTotalChallenges"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/primary"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quests Set"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card 2: Moments Captured -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_container_lowest">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvTotalMoments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/primary"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Moments"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Card 3: Completion Rate Circular indicator -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface_container_lowest"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <!-- Circular ProgressBar overlay -->
+                <FrameLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarCompletion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/progress_ring"
+                        style="?android:attr/progressBarStyleHorizontal" />
+
+                    <TextView
+                        android:id="@+id/tvCompletionPercentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/tertiary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Completion Rate"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCompletionRatioText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 of 0 challenges completed"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="13sp"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Category Progress Breakdown -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breakdown by Category"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:textColor="@color/on_surface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface_container_lowest"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Travel category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Travel"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_surface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTravelStats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 Completed (0%)"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressTravel"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressBackgroundTint="@color/surface_container_highest"
+                        android:progressTint="@color/secondary_container"
+                        style="?android:attr/progressBarStyleHorizontal" />
+                </LinearLayout>
+
+                <!-- Learning category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Learning"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_surface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvLearningStats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 Completed (0%)"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressLearning"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressBackgroundTint="@color/surface_container_highest"
+                        android:progressTint="@color/primary_fixed"
+                        style="?android:attr/progressBarStyleHorizontal" />
+                </LinearLayout>
+
+                <!-- Fitness category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fitness"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_surface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvFitnessStats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 Completed (0%)"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressFitness"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressBackgroundTint="@color/surface_container_highest"
+                        android:progressTint="@color/primary"
+                        style="?android:attr/progressBarStyleHorizontal" />
+                </LinearLayout>
+
+                <!-- Social category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Social"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_surface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSocialStats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 Completed (0%)"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressSocial"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressBackgroundTint="@color/surface_container_highest"
+                        android:progressTint="@color/tertiary"
+                        style="?android:attr/progressBarStyleHorizontal" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Activity Timeline / Simple chart -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent Activity"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:textColor="@color/on_surface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface_container_lowest"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:padding="16dp">
+
+                <!-- Jan -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom">
+                    <View
+                        android:layout_width="16dp"
+                        android:layout_height="30dp"
+                        android:background="@color/surface_container_highest"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jan"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Feb -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom">
+                    <View
+                        android:layout_width="16dp"
+                        android:layout_height="45dp"
+                        android:background="@color/surface_container_highest"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feb"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Mar -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom">
+                    <View
+                        android:layout_width="16dp"
+                        android:layout_height="60dp"
+                        android:background="@color/surface_container_highest"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mar"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Apr -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom">
+                    <View
+                        android:layout_width="16dp"
+                        android:layout_height="25dp"
+                        android:background="@color/surface_container_highest"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apr"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- May -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom">
+                    <View
+                        android:layout_width="16dp"
+                        android:layout_height="80dp"
+                        android:background="@color/surface_container_highest"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="May"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Jun -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom">
+                    <View
+                        android:layout_width="16dp"
+                        android:layout_height="95dp"
+                        android:background="@color/primary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jun"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/primary"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

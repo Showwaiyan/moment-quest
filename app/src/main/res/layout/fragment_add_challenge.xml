@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="16dp">
+
+    <!-- Top Toolbar Row -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/primary"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set a Challenge"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:textColor="@color/on_surface"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <!-- Title Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Challenge Title"
+        app:boxStrokeColor="@color/primary"
+        app:hintTextColor="@color/primary"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/on_surface"
+            android:fontFamily="@font/be_vietnam_pro"
+            android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Category Spinner label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:fontFamily="@font/space_grotesk"
+        android:textColor="@color/primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Spinner Category -->
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/card_background"
+        android:layout_marginBottom="16dp"
+        android:spinnerMode="dropdown"/>
+
+    <!-- Deadline Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Target Deadline (Optional)"
+        app:boxStrokeColor="@color/primary"
+        app:hintTextColor="@color/primary"
+        app:startIconDrawable="@android:drawable/ic_menu_my_calendar"
+        android:layout_marginBottom="24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/on_surface"
+            android:fontFamily="@font/be_vietnam_pro"
+            android:focusable="false"
+            android:clickable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Help / Description Text -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Setting a challenge helps you stay intentional. Once completed, you can attach a photo, GPS location, and notes to lock in the memory."
+        android:fontFamily="@font/be_vietnam_pro"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="13sp"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Action Buttons -->
+    <Button
+        android:id="@+id/btnSetChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Set Challenge"
+        android:background="@drawable/button_primary"
+        app:backgroundTint="@null"
+        android:textColor="@color/on_primary"
+        android:fontFamily="@font/space_grotesk"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Cancel"
+        android:background="@drawable/button_outlined"
+        app:backgroundTint="@null"
+        android:textColor="@color/outline"
+        android:fontFamily="@font/space_grotesk"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        style="@style/Widget.Material3.Button.OutlinedButton" />
+
+</LinearLayout>

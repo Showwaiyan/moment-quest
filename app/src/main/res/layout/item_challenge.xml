@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp">
+
+    <!-- Timeline Indicator Line on Left -->
+    <View
+        android:id="@+id/timelineLine"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/outline_variant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="19dp"/>
+
+    <!-- Timeline Circle on Left (Flag Icon inside) -->
+    <FrameLayout
+        android:id="@+id/timelineDotContainer"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/button_primary"
+        app:layout_constraintTop_toTopOf="@id/cardChallenge"
+        app:layout_constraintBottom_toTopOf="@id/cardChallenge"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:translationY="24dp"
+        android:elevation="2dp">
+
+        <ImageView
+            android:id="@+id/ivTimelineIcon"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_flag"
+            app:tint="@color/on_primary"
+            android:contentDescription="Timeline Icon" />
+    </FrameLayout>
+
+    <!-- Main Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardChallenge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/surface_container_lowest"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TRAVEL"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/primary"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Go to the beach"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/on_surface"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <!-- Status Chip -->
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:textColor="@color/on_surface_variant"
+                    android:background="@drawable/card_background"
+                    android:backgroundTint="@color/surface_container_highest"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/space_grotesk" />
+            </LinearLayout>
+
+            <!-- Deadline Row -->
+            <LinearLayout
+                android:id="@+id/deadlineLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="12dp">
+
+                <!-- Using standard android drawable resource for safety -->
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/ic_menu_my_calendar"
+                    app:tint="@color/on_surface_variant"
+                    android:contentDescription="Calendar" />
+
+                <TextView
+                    android:id="@+id/tvDeadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Due Dec 31, 2026"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="13sp"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Memory Container (visible only when completed) -->
+            <LinearLayout
+                android:id="@+id/completedMemoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:visibility="gone">
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/surface_container_highest"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Note / Reflection -->
+                <TextView
+                    android:id="@+id/tvMemoryNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Finished reading Dune! It was amazing."
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <!-- Memory Image -->
+                <ImageView
+                    android:id="@+id/ivMemoryPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:contentDescription="Memory Image" />
+            </LinearLayout>
+
+            <!-- Action Button (visible only when pending) -->
+            <Button
+                android:id="@+id/btnMarkDone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="MARK DONE"
+                android:background="@drawable/button_primary"
+                app:backgroundTint="@null"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/space_grotesk"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
