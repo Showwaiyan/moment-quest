@@ -15,9 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.momentquest.databinding.FragmentAddMomentBinding
 import com.example.momentquest.viewmodel.MomentViewModel
+import android.content.Context
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import java.io.File
+import java.util.Locale
 
 class AddMomentFragment : Fragment() {
 
@@ -101,40 +106,93 @@ class AddMomentFragment : Fragment() {
         }
     }
 
+    private fun onLocationFound(location: Location) {
+        latitude = location.latitude
+        longitude = location.longitude
+        binding.tvLocationCoords.text = String.format(
+            Locale.US,
+            "Coords: %.4f° N, %.4f° E",
+            latitude,
+            longitude
+        )
+    }
+
+    private fun requestNativeLocationUpdate() {
+        try {
+            val context = requireContext()
+            val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
+            if (locationManager == null) {
+                binding.tvLocationCoords.text = "GPS active, but no location fix."
+                return
+            }
+
+            val providers = locationManager.getProviders(true)
+            if (providers.isEmpty()) {
+                binding.tvLocationCoords.text = "Location services are disabled."
+                return
+            }
+
+            val provider = if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                LocationManager.NETWORK_PROVIDER
+            } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                LocationManager.GPS_PROVIDER
+            } else {
+                providers.first()
+            }
+
+            locationManager.requestSingleUpdate(provider, object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    onLocationFound(location)
+                }
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onProviderDisabled(provider: String) {}
+            }, android.os.Looper.getMainLooper())
+
+        } catch (e: SecurityException) {
+            binding.tvLocationCoords.text = "Location permission required."
+        } catch (e: Exception) {
+            binding.tvLocationCoords.text = "GPS active, but no location fix."
+        }
+    }
+
     private fun fetchLocation() {
         try {
+            val context = requireContext()
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            
+            // 1. Try Google Fused Location lastLocation
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
-                    latitude = location.latitude
-                    longitude = location.longitude
-                    binding.tvLocationCoords.text = String.format(
-                        "Coords: %.4f° N, %.4f° E",
-                        latitude,
-                        longitude
-                    )
+                    onLocationFound(location)
                 } else {
-                    binding.tvLocationCoords.text = "GPS active, fetching fresh fix..."
-                    fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-                        .addOnSuccessListener { freshLocation ->
-                            if (freshLocation != null) {
-                                latitude = freshLocation.latitude
-                                longitude = freshLocation.longitude
-                                binding.tvLocationCoords.text = String.format(
-                                    "Coords: %.4f° N, %.4f° E",
-                                    latitude,
-                                    longitude
-                                )
-                            } else {
-                                binding.tvLocationCoords.text = "GPS active, but no location fix."
+                    // 2. Try Native LocationManager lastKnownLocation
+                    val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
+                    val gpsLoc = try { locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER) } catch (e: Exception) { null }
+                    val netLoc = try { locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) } catch (e: Exception) { null }
+                    
+                    val bestLocation = gpsLoc ?: netLoc
+                    if (bestLocation != null) {
+                        onLocationFound(bestLocation)
+                    } else {
+                        // 3. Force request updates
+                        binding.tvLocationCoords.text = "GPS active, fetching fresh fix..."
+                        
+                        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+                            .addOnSuccessListener { freshLocation ->
+                                if (freshLocation != null) {
+                                    onLocationFound(freshLocation)
+                                } else {
+                                    requestNativeLocationUpdate()
+                                }
                             }
-                        }
-                        .addOnFailureListener {
-                            binding.tvLocationCoords.text = "Failed to get fresh GPS fix."
-                        }
+                            .addOnFailureListener {
+                                requestNativeLocationUpdate()
+                            }
+                    }
                 }
             }.addOnFailureListener {
-                binding.tvLocationCoords.text = "Failed to fetch GPS coordinates."
+                requestNativeLocationUpdate()
             }
         } catch (e: SecurityException) {
             binding.tvLocationCoords.text = "Location permission required."
