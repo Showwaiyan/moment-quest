@@ -52,7 +52,7 @@ class StatsViewModel(application: Application) : AndroidViewModel(application) {
 
                 val breakdown = mutableMapOf<String, Pair<Int, Int>>()
                 // Define standard categories we want to report
-                val categories = listOf("Travel", "Learning", "Fitness", "Social")
+                val categories = listOf("Travel", "Learning", "Fitness", "Social", "Career", "Others")
                 for (cat in categories) {
                     val catChallenges = challenges.filter { it.category.equals(cat, ignoreCase = true) }
                     val catTotal = catChallenges.size

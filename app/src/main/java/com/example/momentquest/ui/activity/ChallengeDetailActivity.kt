@@ -116,7 +116,39 @@ class ChallengeDetailActivity : AppCompatActivity() {
     private fun bindChallengeDetails(challenge: Challenge) {
         binding.tvChallengeTitle.text = challenge.title
         binding.tvChallengeCategory.text = challenge.category.uppercase(Locale.getDefault())
-        binding.tvChallengeStatus.text = challenge.status
+
+        val categoryColorBg = when (challenge.category.lowercase(Locale.getDefault())) {
+            "travel" -> R.color.category_travel_bg
+            "learning" -> R.color.category_learning_bg
+            "fitness" -> R.color.category_fitness_bg
+            "social" -> R.color.category_social_bg
+            "career" -> R.color.category_career_bg
+            else -> R.color.category_others_bg
+        }
+        val categoryColorFg = when (challenge.category.lowercase(Locale.getDefault())) {
+            "travel" -> R.color.category_travel_fg
+            "learning" -> R.color.category_learning_fg
+            "fitness" -> R.color.category_fitness_fg
+            "social" -> R.color.category_social_fg
+            "career" -> R.color.category_career_fg
+            else -> R.color.category_others_fg
+        }
+        val categoryIcon = when (challenge.category.lowercase(Locale.getDefault())) {
+            "travel" -> R.drawable.ic_flight
+            "learning" -> R.drawable.ic_lightbulb
+            "fitness" -> R.drawable.ic_fitness
+            "social" -> R.drawable.ic_groups
+            "career" -> R.drawable.ic_career
+            else -> R.drawable.ic_others
+        }
+        binding.categoryTagLayout.setBackgroundTintList(
+            android.content.res.ColorStateList.valueOf(getColor(categoryColorBg))
+        )
+        binding.ivCategoryIcon.setImageResource(categoryIcon)
+        binding.ivCategoryIcon.setImageTintList(
+            android.content.res.ColorStateList.valueOf(getColor(categoryColorFg))
+        )
+        binding.tvChallengeCategory.setTextColor(getColor(categoryColorFg))
 
         val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         binding.tvSetDate.text = "Set on " + sdf.format(Date(challenge.createdAt))
@@ -131,9 +163,9 @@ class ChallengeDetailActivity : AppCompatActivity() {
         if (challenge.status == "COMPLETED") {
             binding.tvChallengeStatus.text = "Completed"
             binding.statusTagLayout.setBackgroundTintList(
-                android.content.res.ColorStateList.valueOf(getColor(R.color.tertiary_container))
+                android.content.res.ColorStateList.valueOf(getColor(R.color.tertiary_fixed))
             )
-            binding.tvChallengeStatus.setTextColor(getColor(R.color.on_tertiary))
+            binding.tvChallengeStatus.setTextColor(getColor(R.color.on_tertiary_fixed_variant))
 
             // Hide pending views, show completed views
             binding.pendingSection.visibility = View.GONE

@@ -39,4 +39,26 @@
 
     <color name="outline">#8F6F76</color>
     <color name="outline_variant">#E3BDC5</color>
+
+    <!-- Category Branding Colors -->
+    <color name="category_travel_bg">#FFD9E0</color>
+    <color name="category_travel_fg">#B60058</color>
+    <color name="category_learning_bg">#CCFAF4</color>
+    <color name="category_learning_fg">#00685F</color>
+    <color name="category_fitness_bg">#FFF2B2</color>
+    <color name="category_fitness_fg">#705D00</color>
+    <color name="category_social_bg">#FFCCD7</color>
+    <color name="category_social_fg">#8F0044</color>
+    <color name="category_career_bg">#E2D7FE</color>
+    <color name="category_career_fg">#5835C1</color>
+    <color name="category_others_bg">#E2E1E2</color>
+    <color name="category_others_fg">#5E5D5F</color>
+
+    <!-- Missing Fixed Colors -->
+    <color name="on_primary_fixed">#3F001A</color>
+    <color name="on_primary_fixed_variant">#8F0044</color>
+    <color name="surface_variant">#E5E2E3</color>
+    <color name="brand_pink">#FF3385</color>
+    <color name="tertiary_fixed">#57FAE9</color>
+    <color name="on_tertiary_fixed_variant">#005049</color>
 </resources>

@@ -6,22 +6,26 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/surface"
-    android:padding="16dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <!-- Drag Handle -->
+    <!-- Drag Handle Area -->
     <View
-        android:layout_width="32dp"
-        android:layout_height="4dp"
-        android:background="@color/outline"
+        android:layout_width="48dp"
+        android:layout_height="5dp"
+        android:background="@color/outline_variant"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/outline" />
 
     <!-- Header Row -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="12dp"
+        android:background="@color/surface"
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,175 +33,298 @@
             android:text="Complete Challenge &amp; Add Memory"
             android:fontFamily="@font/plus_jakarta_sans"
             android:textColor="@color/on_surface"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/btnClose"
+            android:layout_marginEnd="16dp" />
 
         <ImageButton
             android:id="@+id/btnClose"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:src="@drawable/ic_close"
             android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/outline"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:contentDescription="Close" />
     </RelativeLayout>
 
-    <!-- Reflection Input -->
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- Bottom border line -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Your Reflection"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
-        android:layout_marginBottom="16dp">
+        android:layout_height="1dp"
+        android:background="@color/outline_variant" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNotes"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="top"
-            android:textColor="@color/on_surface"
-            android:fontFamily="@font/be_vietnam_pro"
-            android:inputType="textMultiLine|textCapSentences" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Photo Selector Box -->
-    <FrameLayout
-        android:id="@+id/photoContainer"
+    <!-- Content Area (Scrollable) -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@drawable/card_background"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/photoPlaceholder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:padding="20dp">
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_camera"
-                app:tint="@color/outline"
-                android:contentDescription="Camera" />
-
+            <!-- Reflection Input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Photo (Camera or Gallery)"
-                android:textColor="@color/outline"
-                android:fontFamily="@font/be_vietnam_pro"
-                android:textSize="12sp"
-                android:layout_marginTop="6dp" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/ivPhotoPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            android:contentDescription="Photo Preview" />
-
-        <LinearLayout
-            android:id="@+id/photoActions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="8dp"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/btnRemovePhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remove"
-                android:textColor="@color/error"
+                android:text="Your Reflection"
                 android:fontFamily="@font/space_grotesk"
+                android:textColor="@color/on_surface_variant"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:padding="4dp" />
-        </LinearLayout>
-    </FrameLayout>
+                android:layout_marginBottom="6dp" />
 
-    <!-- GPS Location Banner -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/surface_container"
-        android:layout_marginBottom="24dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="12dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_location"
-                app:tint="@color/tertiary"
-                android:contentDescription="Location Pin" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/surface_container_low"
+                app:boxStrokeColor="@color/primary"
+                app:hintEnabled="false"
+                android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Location Auto-Detected"
-                    android:fontFamily="@font/space_grotesk"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:gravity="top"
+                    android:hint="How did you achieve this? Record your thoughts, who you were with, or how you felt..."
                     android:textColor="@color/on_surface"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textColorHint="@color/outline"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:textSize="14sp"
+                    android:padding="14dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Photo Attachment Area -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photo"
+                android:fontFamily="@font/space_grotesk"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="0dp"
+                app:cardElevation="2dp">
+
+                <FrameLayout
+                    android:id="@+id/photoContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/bg_dashed_border"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <!-- Placeholder -->
+                    <LinearLayout
+                        android:id="@+id/photoPlaceholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_camera"
+                            app:tint="@color/primary"
+                            android:contentDescription="Camera" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add Photo (Camera or Gallery)"
+                            android:textColor="@color/on_surface"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:layout_marginTop="6dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tap to upload or capture"
+                            android:textColor="@color/outline"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textSize="11sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivPhotoPreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:contentDescription="Photo Preview" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Photo Actions (Retake and Remove) -->
+            <LinearLayout
+                android:id="@+id/photoActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/tvLocationCoords"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fetching GPS coordinates..."
-                    android:fontFamily="@font/be_vietnam_pro"
+                    android:text="📷 Retake"
                     android:textColor="@color/on_surface_variant"
-                    android:textSize="12sp" />
+                    android:fontFamily="@font/space_grotesk"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:padding="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground" />
+
+                <TextView
+                    android:id="@+id/btnRemovePhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🗑️ Remove"
+                    android:textColor="@color/error"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:padding="8dp"
+                    android:layout_marginStart="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground" />
             </LinearLayout>
 
-            <!-- Green Dot -->
-            <View
-                android:id="@+id/gpsStatusDot"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="#FF4CAF50" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <!-- GPS Location Banner -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/surface_container_low"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardElevation="2dp">
 
-    <!-- Lock In / Complete Button -->
-    <Button
-        android:id="@+id/btnComplete"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_category_icon_box"
+                        android:backgroundTint="@color/primary_fixed">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/primary"
+                            android:layout_gravity="center"
+                            android:contentDescription="Location Pin" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Location Auto-Detected"
+                            android:fontFamily="@font/plus_jakarta_sans"
+                            android:textColor="@color/on_surface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvLocationCoords"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fetching GPS coordinates..."
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- Green Status Dot -->
+                    <View
+                        android:id="@+id/gpsStatusDot"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/card_background"
+                        android:backgroundTint="#FF4CAF50"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Border Line above sticky footer -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Lock in Memory &amp; Complete"
-        android:background="@drawable/button_primary"
-        app:backgroundTint="@color/tertiary"
-        android:textColor="@color/on_tertiary"
-        android:fontFamily="@font/space_grotesk"
-        android:textStyle="bold"
-        android:textSize="14sp" />
+        android:layout_height="1dp"
+        android:background="@color/outline_variant" />
+
+    <!-- Sticky Bottom Action Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@color/surface">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnComplete"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Lock in Memory &amp; Complete"
+            app:icon="@drawable/ic_check"
+            app:iconSize="18dp"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/on_primary"
+            android:fontFamily="@font/space_grotesk"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:cornerRadius="12dp"
+            android:elevation="4dp" />
+    </LinearLayout>
 </LinearLayout>

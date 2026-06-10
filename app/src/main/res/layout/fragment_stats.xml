@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <!-- Top AppBar -->
         <RelativeLayout
@@ -19,22 +21,37 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp">
 
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_camera"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                app:tint="@color/primary"
+                android:contentDescription="Camera Logo"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Your Journey"
                 android:fontFamily="@font/plus_jakarta_sans"
-                android:textColor="@color/on_surface"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true" />
 
             <ImageButton
                 android:id="@+id/btnSettings"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ic_settings"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                app:tint="@color/primary"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="Settings" />
         </RelativeLayout>
 
@@ -44,23 +61,48 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="16dp">
 
             <!-- Card 1: Challenges Set -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface_container_lowest">
+                app:cardBackgroundColor="@color/primary_container"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:alpha="0.9">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_flag"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Challenges Set"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="6dp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvTotalChallenges"
@@ -68,37 +110,53 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:fontFamily="@font/plus_jakarta_sans"
-                        android:textColor="@color/primary"
-                        android:textSize="32sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Quests Set"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="11sp"
+                        android:textColor="@color/white"
+                        android:textSize="36sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="16dp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 2: Moments Captured -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface_container_lowest">
+                app:cardBackgroundColor="@color/secondary_container"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:alpha="0.9">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_camera"
+                            app:tint="@color/on_secondary_container" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Moments Captured"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_secondary_container"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="6dp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvTotalMoments"
@@ -106,43 +164,48 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:fontFamily="@font/plus_jakarta_sans"
-                        android:textColor="@color/primary"
-                        android:textSize="32sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Moments"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="11sp"
+                        android:textColor="@color/on_secondary_container"
+                        android:textSize="36sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="16dp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <!-- Card 3: Completion Rate Circular indicator -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/surface_container_lowest"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/surface_container"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/outline_variant"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="20dp">
 
-                <!-- Circular ProgressBar overlay -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="COMPLETION RATE"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp" />
+
                 <FrameLayout
-                    android:layout_width="90dp"
-                    android:layout_height="90dp">
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="12dp">
 
                     <ProgressBar
                         android:id="@+id/progressBarCompletion"
@@ -160,67 +223,66 @@
                         android:layout_height="wrap_content"
                         android:text="0%"
                         android:fontFamily="@font/plus_jakarta_sans"
-                        android:textColor="@color/tertiary"
-                        android:textSize="20sp"
+                        android:textColor="@color/primary"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         android:layout_gravity="center" />
                 </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvCompletionRatioText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="24dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Completion Rate"
-                        android:fontFamily="@font/plus_jakarta_sans"
-                        android:textColor="@color/on_surface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCompletionRatioText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 of 0 challenges completed"
-                        android:fontFamily="@font/be_vietnam_pro"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="13sp"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
+                    android:text="0 of 0 challenges completed"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Category Progress Breakdown -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breakdown by Category"
-            android:fontFamily="@font/plus_jakarta_sans"
-            android:textColor="@color/on_surface"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
-
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/surface_container_lowest"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/surface_container"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/outline_variant"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
-                <!-- Travel category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_monitoring"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Breakdown by Category"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <!-- Travel Category -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -230,41 +292,65 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="6dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Travel"
-                            android:fontFamily="@font/space_grotesk"
-                            android:textColor="@color/on_surface"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <FrameLayout
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_category_icon_box"
+                                android:backgroundTint="@color/category_travel_bg">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_flight"
+                                    app:tint="@color/category_travel_fg"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Travel"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvTravelStats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0 / 0 Completed (0%)"
-                            android:fontFamily="@font/be_vietnam_pro"
+                            android:fontFamily="@font/space_grotesk"
                             android:textColor="@color/on_surface_variant"
                             android:textSize="12sp"
-                            android:layout_alignParentEnd="true" />
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
                     </RelativeLayout>
 
                     <ProgressBar
                         android:id="@+id/progressTravel"
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
+                        android:layout_height="12dp"
                         android:indeterminate="false"
                         android:max="100"
                         android:progress="0"
-                        android:progressBackgroundTint="@color/surface_container_highest"
-                        android:progressTint="@color/secondary_container"
+                        android:progressDrawable="@drawable/progress_bar_horizontal_rounded"
+                        android:progressTint="@color/category_travel_fg"
                         style="?android:attr/progressBarStyleHorizontal" />
                 </LinearLayout>
 
-                <!-- Learning category -->
+                <!-- Learning Category -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -274,41 +360,65 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="6dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Learning"
-                            android:fontFamily="@font/space_grotesk"
-                            android:textColor="@color/on_surface"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <FrameLayout
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_category_icon_box"
+                                android:backgroundTint="@color/category_learning_bg">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_book"
+                                    app:tint="@color/category_learning_fg"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Learning"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvLearningStats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0 / 0 Completed (0%)"
-                            android:fontFamily="@font/be_vietnam_pro"
+                            android:fontFamily="@font/space_grotesk"
                             android:textColor="@color/on_surface_variant"
                             android:textSize="12sp"
-                            android:layout_alignParentEnd="true" />
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
                     </RelativeLayout>
 
                     <ProgressBar
                         android:id="@+id/progressLearning"
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
+                        android:layout_height="12dp"
                         android:indeterminate="false"
                         android:max="100"
                         android:progress="0"
-                        android:progressBackgroundTint="@color/surface_container_highest"
-                        android:progressTint="@color/primary_fixed"
+                        android:progressDrawable="@drawable/progress_bar_horizontal_rounded"
+                        android:progressTint="@color/category_learning_fg"
                         style="?android:attr/progressBarStyleHorizontal" />
                 </LinearLayout>
 
-                <!-- Fitness category -->
+                <!-- Fitness Category -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -318,41 +428,201 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="6dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fitness"
-                            android:fontFamily="@font/space_grotesk"
-                            android:textColor="@color/on_surface"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <FrameLayout
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_category_icon_box"
+                                android:backgroundTint="@color/category_fitness_bg">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_fitness"
+                                    app:tint="@color/category_fitness_fg"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Fitness"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvFitnessStats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0 / 0 Completed (0%)"
-                            android:fontFamily="@font/be_vietnam_pro"
+                            android:fontFamily="@font/space_grotesk"
                             android:textColor="@color/on_surface_variant"
                             android:textSize="12sp"
-                            android:layout_alignParentEnd="true" />
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
                     </RelativeLayout>
 
                     <ProgressBar
                         android:id="@+id/progressFitness"
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
+                        android:layout_height="12dp"
                         android:indeterminate="false"
                         android:max="100"
                         android:progress="0"
-                        android:progressBackgroundTint="@color/surface_container_highest"
-                        android:progressTint="@color/primary"
+                        android:progressDrawable="@drawable/progress_bar_horizontal_rounded"
+                        android:progressTint="@color/category_fitness_fg"
                         style="?android:attr/progressBarStyleHorizontal" />
                 </LinearLayout>
 
-                <!-- Social category -->
+                <!-- Social Category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <FrameLayout
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_category_icon_box"
+                                android:backgroundTint="@color/category_social_bg">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_groups"
+                                    app:tint="@color/category_social_fg"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Social"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvSocialStats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 Completed (0%)"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressSocial"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/progress_bar_horizontal_rounded"
+                        android:progressTint="@color/category_social_fg"
+                        style="?android:attr/progressBarStyleHorizontal" />
+                </LinearLayout>
+
+                <!-- Career Category -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <FrameLayout
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_category_icon_box"
+                                android:backgroundTint="@color/category_career_bg">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_career"
+                                    app:tint="@color/category_career_fg"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Career"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvCareerStats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 Completed (0%)"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressCareer"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/progress_bar_horizontal_rounded"
+                        android:progressTint="@color/category_career_fg"
+                        style="?android:attr/progressBarStyleHorizontal" />
+                </LinearLayout>
+
+                <!-- Others Category -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -361,196 +631,66 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="6dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Social"
-                            android:fontFamily="@font/space_grotesk"
-                            android:textColor="@color/on_surface"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <FrameLayout
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="@drawable/bg_category_icon_box"
+                                android:backgroundTint="@color/category_others_bg">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_others"
+                                    app:tint="@color/category_others_fg"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Others"
+                                android:fontFamily="@font/plus_jakarta_sans"
+                                android:textColor="@color/on_surface"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvSocialStats"
+                            android:id="@+id/tvOthersStats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0 / 0 Completed (0%)"
-                            android:fontFamily="@font/be_vietnam_pro"
+                            android:fontFamily="@font/space_grotesk"
                             android:textColor="@color/on_surface_variant"
                             android:textSize="12sp"
-                            android:layout_alignParentEnd="true" />
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
                     </RelativeLayout>
 
                     <ProgressBar
-                        android:id="@+id/progressSocial"
+                        android:id="@+id/progressOthers"
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
+                        android:layout_height="12dp"
                         android:indeterminate="false"
                         android:max="100"
                         android:progress="0"
-                        android:progressBackgroundTint="@color/surface_container_highest"
-                        android:progressTint="@color/tertiary"
+                        android:progressDrawable="@drawable/progress_bar_horizontal_rounded"
+                        android:progressTint="@color/category_others_fg"
                         style="?android:attr/progressBarStyleHorizontal" />
                 </LinearLayout>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Activity Timeline / Simple chart -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recent Activity"
-            android:fontFamily="@font/plus_jakarta_sans"
-            android:textColor="@color/on_surface"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/surface_container_lowest"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:gravity="bottom"
-                android:padding="16dp">
-
-                <!-- Jan -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal|bottom">
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="30dp"
-                        android:background="@color/surface_container_highest"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Jan"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="10sp"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <!-- Feb -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal|bottom">
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="45dp"
-                        android:background="@color/surface_container_highest"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Feb"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="10sp"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <!-- Mar -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal|bottom">
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="60dp"
-                        android:background="@color/surface_container_highest"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mar"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="10sp"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <!-- Apr -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal|bottom">
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="25dp"
-                        android:background="@color/surface_container_highest"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Apr"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="10sp"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <!-- May -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal|bottom">
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="80dp"
-                        android:background="@color/surface_container_highest"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="May"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="10sp"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-
-                <!-- Jun -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal|bottom">
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="95dp"
-                        android:background="@color/primary"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Jun"
-                        android:fontFamily="@font/space_grotesk"
-                        android:textColor="@color/primary"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </ScrollView>

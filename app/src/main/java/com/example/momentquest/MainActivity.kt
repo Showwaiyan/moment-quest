@@ -116,11 +116,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Switched to Timeline. Tap search again to filter!", Toast.LENGTH_SHORT).show()
             }
         }
-
-        binding.btnMonitoring.setOnClickListener {
-            // Show a mock system monitor connection state
-            Toast.makeText(this, "Firestore Sync: Connected (Monitoring OK)", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun showSearchDialog(timelineFragment: TimelineFragment) {

@@ -88,6 +88,20 @@ class StatsFragment : Fragment() {
                 binding.tvSocialStats.text = String.format(Locale.getDefault(), "%d / %d Completed (%d%%)", completed, total, percentage)
                 binding.progressSocial.progress = percentage
             }
+
+            // Career category
+            breakdown["Career"]?.let { (completed, total) ->
+                val percentage = if (total > 0) (completed * 100) / total else 0
+                binding.tvCareerStats.text = String.format(Locale.getDefault(), "%d / %d Completed (%d%%)", completed, total, percentage)
+                binding.progressCareer.progress = percentage
+            }
+
+            // Others category
+            breakdown["Others"]?.let { (completed, total) ->
+                val percentage = if (total > 0) (completed * 100) / total else 0
+                binding.tvOthersStats.text = String.format(Locale.getDefault(), "%d / %d Completed (%d%%)", completed, total, percentage)
+                binding.progressOthers.progress = percentage
+            }
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->

@@ -1,135 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
-    android:padding="16dp">
+    android:fillViewport="true">
 
-    <!-- Top Toolbar Row -->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/primary"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Set a Challenge"
-            android:fontFamily="@font/plus_jakarta_sans"
-            android:textColor="@color/on_surface"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
-
-    <!-- Title Input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Challenge Title"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
-        android:layout_marginBottom="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTitle"
+        <!-- Top AppBar -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_surface"
-            android:fontFamily="@font/be_vietnam_pro"
-            android:inputType="textCapSentences" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="24dp">
 
-    <!-- Category Spinner label -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Category"
-        android:fontFamily="@font/space_grotesk"
-        android:textColor="@color/primary"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_arrow_back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                app:tint="@color/primary"
+                android:contentDescription="Back"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
 
-    <!-- Spinner Category -->
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/card_background"
-        android:popupBackground="@color/white"
-        android:layout_marginBottom="16dp"
-        android:spinnerMode="dropdown"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set a Challenge"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:textColor="@color/on_surface"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
 
-    <!-- Deadline Input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDeadline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Target Deadline (Optional)"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
-        app:startIconDrawable="@android:drawable/ic_menu_my_calendar"
-        android:layout_marginBottom="24dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDeadline"
+        <!-- Inputs Card Group -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_surface"
-            android:fontFamily="@font/be_vietnam_pro"
-            android:focusable="false"
-            android:clickable="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/surface_container_lowest"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/outline_variant"
+            app:cardElevation="2dp">
 
-    <!-- Help / Description Text -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Setting a challenge helps you stay intentional. Once completed, you can attach a photo, GPS location, and notes to lock in the memory."
-        android:fontFamily="@font/be_vietnam_pro"
-        android:textColor="@color/on_surface_variant"
-        android:textSize="13sp"
-        android:lineSpacingMultiplier="1.2"
-        android:layout_marginBottom="32dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <!-- Action Buttons -->
-    <Button
-        android:id="@+id/btnSetChallenge"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Set Challenge"
-        android:background="@drawable/button_primary"
-        app:backgroundTint="@null"
-        android:textColor="@color/on_primary"
-        android:fontFamily="@font/space_grotesk"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:layout_marginBottom="12dp" />
+                <!-- Title Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Challenge Title"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Cancel"
-        android:background="@drawable/button_outlined"
-        app:backgroundTint="@null"
-        android:textColor="@color/outline"
-        android:fontFamily="@font/space_grotesk"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        style="@style/Widget.Material3.Button.OutlinedButton" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxBackgroundColor="@color/surface_container_low"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
 
-</LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="e.g., Run a half marathon"
+                        android:textColor="@color/on_surface"
+                        android:textColorHint="@color/outline"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:inputType="textCapSentences"
+                        android:textSize="15sp"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Category Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_input_field_normal"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_book"
+                        app:tint="@color/primary"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="14dp"
+                        android:contentDescription="Category Icon" />
+
+                    <Spinner
+                        android:id="@+id/spinnerCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/white"
+                        android:spinnerMode="dropdown"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginEnd="40dp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_expand_more"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="Dropdown Indicator" />
+                </RelativeLayout>
+
+                <!-- Deadline Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Target Deadline (Optional)"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDeadline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxBackgroundColor="@color/surface_container_low"
+                    app:boxStrokeColor="@color/primary"
+                    app:startIconDrawable="@drawable/ic_calendar"
+                    app:startIconTint="@color/outline"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDeadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Select a date"
+                        android:textColor="@color/on_surface"
+                        android:textColorHint="@color/outline"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:textSize="15sp"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Help Text Bento Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="#33FFE16D"
+            app:strokeWidth="1dp"
+            app:strokeColor="#4DFFE16D"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="top">
+
+                <FrameLayout
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_category_icon_box"
+                    android:backgroundTint="@color/secondary_container"
+                    android:layout_marginTop="2dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_lightbulb"
+                        app:tint="@color/on_secondary_container"
+                        android:layout_gravity="center"
+                        android:contentDescription="Lightbulb Icon" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Setting a challenge helps you stay intentional. Once completed, you can attach a photo, GPS location, and notes to lock in the memory."
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Footer Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetChallenge"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Set Challenge"
+                app:icon="@drawable/ic_flag"
+                app:iconSize="18dp"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/space_grotesk"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:cornerRadius="12dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Cancel"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:textColor="@color/on_surface"
+                android:fontFamily="@font/space_grotesk"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:strokeColor="@color/outline_variant"
+                app:strokeWidth="1dp"
+                app:cornerRadius="12dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
