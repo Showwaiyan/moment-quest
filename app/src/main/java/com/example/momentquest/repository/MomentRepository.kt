@@ -69,8 +69,7 @@ class MomentRepository {
         val db = dbHelper.writableDatabase
         
         // Find photo path to delete file
-        val readableDb = dbHelper.readableDatabase
-        val cursor = readableDb.query(
+        val cursor = db.query(
             DatabaseHelper.TABLE_MOMENTS,
             arrayOf(DatabaseHelper.COLUMN_MOMENT_PHOTO_PATH),
             "${DatabaseHelper.COLUMN_ID} = ?",
@@ -83,7 +82,6 @@ class MomentRepository {
             FileStorageHelper.deleteFile(photoPath)
         }
         cursor.close()
-        readableDb.close()
         
         db.delete(
             DatabaseHelper.TABLE_MOMENTS,
