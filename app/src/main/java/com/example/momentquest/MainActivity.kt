@@ -187,6 +187,7 @@ class MainActivity : AppCompatActivity() {
             transaction.addToBackStack(null)
         }
         transaction.commit()
+        updateUiForFragment(fragment)
     }
 
     private fun updateUiForFragment(fragment: Fragment?) {
