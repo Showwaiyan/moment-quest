@@ -44,11 +44,11 @@
 
             <ImageButton
                 android:id="@+id/btnSettings"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:src="@drawable/ic_settings"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="8dp"
+                android:padding="12dp"
                 app:tint="@color/primary"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -91,7 +91,8 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:src="@drawable/ic_flag"
-                            app:tint="@color/white" />
+                            app:tint="@color/white"
+                            android:contentDescription="Challenges Icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -145,7 +146,8 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:src="@drawable/ic_camera"
-                            app:tint="@color/on_secondary_container" />
+                            app:tint="@color/on_secondary_container"
+                            android:contentDescription="Moments Icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -269,7 +271,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_monitoring"
-                        app:tint="@color/primary" />
+                        app:tint="@color/primary"
+                        android:contentDescription="Monitoring Icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -311,7 +314,8 @@
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_flight"
                                     app:tint="@color/category_travel_fg"
-                                    android:layout_gravity="center" />
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Travel Icon" />
                             </FrameLayout>
 
                             <TextView
@@ -379,7 +383,8 @@
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_book"
                                     app:tint="@color/category_learning_fg"
-                                    android:layout_gravity="center" />
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Learning Icon" />
                             </FrameLayout>
 
                             <TextView
@@ -447,7 +452,8 @@
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_fitness"
                                     app:tint="@color/category_fitness_fg"
-                                    android:layout_gravity="center" />
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Fitness Icon" />
                             </FrameLayout>
 
                             <TextView
@@ -515,7 +521,8 @@
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_groups"
                                     app:tint="@color/category_social_fg"
-                                    android:layout_gravity="center" />
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Social Icon" />
                             </FrameLayout>
 
                             <TextView
@@ -583,7 +590,8 @@
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_career"
                                     app:tint="@color/category_career_fg"
-                                    android:layout_gravity="center" />
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Career Icon" />
                             </FrameLayout>
 
                             <TextView
@@ -650,7 +658,8 @@
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_others"
                                     app:tint="@color/category_others_fg"
-                                    android:layout_gravity="center" />
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Others Icon" />
                             </FrameLayout>
 
                             <TextView

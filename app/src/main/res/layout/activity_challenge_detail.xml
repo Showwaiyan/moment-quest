@@ -31,11 +31,11 @@
 
                 <ImageButton
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:src="@drawable/ic_arrow_back"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
+                    android:padding="12dp"
                     app:tint="@color/brand_pink"
                     android:contentDescription="Back"
                     android:layout_alignParentStart="true"
@@ -60,22 +60,22 @@
 
                     <ImageButton
                         android:id="@+id/btnEdit"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:src="@drawable/ic_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="8dp"
+                        android:padding="12dp"
                         app:tint="@color/brand_pink"
                         android:contentDescription="Edit Challenge"
                         android:layout_marginEnd="4dp" />
 
                     <ImageButton
                         android:id="@+id/btnDelete"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:src="@drawable/ic_delete"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="8dp"
+                        android:padding="12dp"
                         app:tint="@color/error"
                         android:contentDescription="Delete Challenge" />
                 </LinearLayout>

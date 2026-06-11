@@ -60,7 +60,11 @@ class AddMomentFragment : Fragment() {
         if (isGranted) {
             openCamera()
         } else {
-            Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+            com.google.android.material.snackbar.Snackbar.make(
+                binding.root,
+                "Camera permission denied. Photo skipped.",
+                com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -258,6 +262,14 @@ class AddMomentFragment : Fragment() {
             else -> "Happy"
         }
 
+        if (latitude == null || longitude == null) {
+            com.google.android.material.snackbar.Snackbar.make(
+                binding.root,
+                "GPS unavailable. Null coordinates stored.",
+                com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+            ).show()
+        }
+
         if (!momentId.isNullOrEmpty()) {
             viewModel.updateMoment(momentId!!, title, description, mood, photoUri, clearPhoto, latitude, longitude)
         } else {
@@ -366,7 +378,11 @@ class AddMomentFragment : Fragment() {
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                com.google.android.material.snackbar.Snackbar.make(
+                    binding.root,
+                    it,
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }

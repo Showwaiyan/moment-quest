@@ -237,6 +237,13 @@ class AddMemoryBottomSheet : BottomSheetDialogFragment() {
 
         binding.btnComplete.setOnClickListener {
             val notes = binding.etNotes.text.toString()
+            if (latitude == null || longitude == null) {
+                com.google.android.material.snackbar.Snackbar.make(
+                    binding.root,
+                    "GPS unavailable. Null coordinates stored.",
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                ).show()
+            }
             viewModel.completeChallenge(challengeId, notes, photoUri, latitude, longitude)
         }
     }
@@ -284,7 +291,11 @@ class AddMemoryBottomSheet : BottomSheetDialogFragment() {
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                com.google.android.material.snackbar.Snackbar.make(
+                    binding.root,
+                    it,
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }

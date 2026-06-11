@@ -124,7 +124,11 @@ class ChallengeDetailActivity : AppCompatActivity() {
 
         viewModel.error.observe(this) { error ->
             error?.let {
-                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                com.google.android.material.snackbar.Snackbar.make(
+                    binding.root,
+                    it,
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }

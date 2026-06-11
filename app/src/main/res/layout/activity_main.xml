@@ -51,12 +51,14 @@
 
                 <ImageView
                     android:id="@+id/btnSearch"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:src="@drawable/ic_search"
                     app:tint="@color/on_surface_variant"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="12dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Search" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -107,7 +109,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_timeline"
-                    app:tint="@color/on_primary" />
+                    app:tint="@color/on_primary"
+                    android:contentDescription="Timeline Tab Icon" />
 
                 <TextView
                     android:id="@+id/tvTabTimeline"
@@ -147,7 +150,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_stats"
-                    app:tint="@color/on_surface_variant" />
+                    app:tint="@color/on_surface_variant"
+                    android:contentDescription="Stats Tab Icon" />
 
                 <TextView
                     android:id="@+id/tvTabStats"
