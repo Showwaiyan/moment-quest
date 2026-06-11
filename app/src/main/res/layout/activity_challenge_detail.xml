@@ -274,7 +274,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Captured Memory"
+                        android:text="Captured Memories"
                         android:fontFamily="@font/plus_jakarta_sans"
                         android:textColor="@color/on_surface"
                         android:textSize="18sp"
@@ -282,187 +282,11 @@
                         android:layout_marginStart="8dp" />
                 </LinearLayout>
 
-                <!-- Photo Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardMemoryPhoto"
+                <LinearLayout
+                    android:id="@+id/memoriesContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="16dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/outline_variant"
-                    app:cardElevation="0dp"
-                    android:layout_marginBottom="20dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp">
-
-                        <ImageView
-                            android:id="@+id/ivMemoryPhoto"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_camera"
-                            android:contentDescription="Memory Photo" />
-
-                        <!-- Inner Shadow Gradient -->
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:layout_gravity="bottom"
-                            android:background="@drawable/bottom_nav_background"
-                            android:backgroundTint="#80000000" />
-
-                        <!-- Core Memory Overlay -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:background="@drawable/bg_category_icon_box"
-                            android:backgroundTint="#B3FCF8F9"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="6dp"
-                            android:layout_gravity="bottom|start"
-                            android:layout_margin="16dp">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@drawable/ic_flag"
-                                app:tint="@color/brand_pink"
-                                android:layout_marginEnd="6dp"
-                                android:contentDescription="Core Memory" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Core Memory"
-                                android:fontFamily="@font/space_grotesk"
-                                android:textColor="@color/on_surface"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Notes Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="16dp"
-                    app:cardBackgroundColor="@color/surface_container_low"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/outline_variant"
-                    app:cardElevation="0dp"
-                    android:layout_marginBottom="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="“"
-                            android:fontFamily="@font/plus_jakarta_sans"
-                            android:textColor="@color/outline_variant"
-                            android:textSize="40sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="-12dp" />
-
-                        <TextView
-                            android:id="@+id/tvMemoryNotes"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Memory notes..."
-                            android:fontFamily="@font/be_vietnam_pro"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="15sp"
-                            android:lineSpacingMultiplier="1.3" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Location Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="16dp"
-                    app:cardBackgroundColor="@color/surface_container"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/outline_variant"
-                    app:cardElevation="0dp"
-                    android:layout_marginBottom="24dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="16dp">
-
-                        <FrameLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_category_icon_box"
-                            android:backgroundTint="@color/primary_container">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_location"
-                                app:tint="@color/on_primary"
-                                android:layout_gravity="center"
-                                android:contentDescription="Location Pin" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="12dp">
-
-                            <TextView
-                                android:id="@+id/tvLocationName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Recorded Location"
-                                android:fontFamily="@font/plus_jakarta_sans"
-                                android:textColor="@color/on_surface"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvLocationCoords"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="GPS Coordinates"
-                                android:fontFamily="@font/space_grotesk"
-                                android:textColor="@color/outline"
-                                android:textSize="11sp"
-                                android:layout_marginTop="4dp"
-                                android:background="@color/surface_variant"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="3dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Completed Date -->
-                <TextView
-                    android:id="@+id/tvCompletedDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Completed on Jun 10, 2026"
-                    android:fontFamily="@font/be_vietnam_pro"
-                    android:textColor="@color/outline"
-                    android:textSize="13sp"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp" />
+                    android:orientation="vertical" />
             </LinearLayout>
 
             <!-- PENDING PLACEHOLDER SECTION -->
@@ -552,7 +376,7 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="Share Memory"
+                android:text="Add Memory"
                 android:fontFamily="@font/space_grotesk"
                 android:textColor="@color/on_surface"
                 android:textSize="14sp"
@@ -562,7 +386,7 @@
                 app:strokeWidth="2dp"
                 app:cornerRadius="12dp"
                 android:layout_marginEnd="8dp"
-                app:icon="@drawable/ic_stats"
+                app:icon="@drawable/ic_add"
                 app:iconGravity="textStart"
                 app:iconSize="18dp"
                 app:iconTint="@color/primary" />
@@ -572,7 +396,7 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="Delete Memory"
+                android:text="Reset Challenge"
                 android:fontFamily="@font/space_grotesk"
                 android:textColor="@color/error"
                 android:textSize="14sp"

@@ -83,9 +83,9 @@ class ChallengeDetailActivity : AppCompatActivity() {
 
         binding.btnDeleteMemory.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Delete Memory")
-                .setMessage("Are you sure you want to delete this memory? The challenge will return to pending.")
-                .setPositiveButton("Delete") { _, _ ->
+                .setTitle("Reset Challenge")
+                .setMessage("Are you sure you want to delete all memories for this challenge? The challenge will return to pending.")
+                .setPositiveButton("Reset") { _, _ ->
                     viewModel.deleteMemory(challengeId)
                 }
                 .setNegativeButton("Cancel", null)
@@ -93,7 +93,10 @@ class ChallengeDetailActivity : AppCompatActivity() {
         }
 
         binding.btnShareMemory.setOnClickListener {
-            Toast.makeText(this, "Share coming soon!", Toast.LENGTH_SHORT).show()
+            val bottomSheet = AddMemoryBottomSheet.newInstance(challengeId) {
+                viewModel.loadChallengeDetails(challengeId)
+            }
+            bottomSheet.show(supportFragmentManager, "AddMemoryBottomSheet")
         }
     }
 
@@ -103,9 +106,7 @@ class ChallengeDetailActivity : AppCompatActivity() {
         }
 
         viewModel.memoriesList.observe(this) { memories ->
-            if (memories.isNotEmpty()) {
-                bindMemoryDetails(memories.first())
-            }
+            bindMemoriesList(memories)
         }
 
         viewModel.saveSuccess.observe(this) { success ->
@@ -209,31 +210,64 @@ class ChallengeDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindMemoryDetails(memory: Memory) {
-        binding.tvMemoryNotes.text = memory.notes
-
-        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-        binding.tvCompletedDate.text = "Completed on " + sdf.format(Date(memory.completedAt))
-
-        if (!memory.photoUrl.isNullOrEmpty()) {
-            binding.cardMemoryPhoto.visibility = View.VISIBLE
-            Glide.with(this)
-                .load(memory.photoUrl)
-                .into(binding.ivMemoryPhoto)
-        } else {
-            binding.cardMemoryPhoto.visibility = View.GONE
-        }
-
-        if (memory.latitude != null && memory.longitude != null) {
-            binding.cardLocation.visibility = View.VISIBLE
-            binding.tvLocationCoords.text = String.format(
-                Locale.US,
-                "%.4f° N, %.4f° E",
-                memory.latitude,
-                memory.longitude
-            )
-        } else {
-            binding.cardLocation.visibility = View.GONE
+    private fun bindMemoriesList(memories: List<Memory>) {
+        binding.memoriesContainer.removeAllViews()
+        val inflater = android.view.LayoutInflater.from(this)
+        
+        for (memory in memories) {
+            val memoryView = inflater.inflate(R.layout.item_memory_detail, binding.memoriesContainer, false)
+            
+            val tvCompletedDate = memoryView.findViewById<android.widget.TextView>(R.id.tvCompletedDate)
+            val btnDeleteSingleMemory = memoryView.findViewById<android.widget.ImageButton>(R.id.btnDeleteSingleMemory)
+            val cardMemoryPhoto = memoryView.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardMemoryPhoto)
+            val ivMemoryPhoto = memoryView.findViewById<android.widget.ImageView>(R.id.ivMemoryPhoto)
+            val tvMemoryNotes = memoryView.findViewById<android.widget.TextView>(R.id.tvMemoryNotes)
+            val cardLocation = memoryView.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardLocation)
+            val tvLocationCoords = memoryView.findViewById<android.widget.TextView>(R.id.tvLocationCoords)
+            
+            // Format date
+            val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+            tvCompletedDate.text = "Completed on " + sdf.format(Date(memory.completedAt))
+            
+            // Notes
+            tvMemoryNotes.text = memory.notes
+            
+            // Photo
+            if (!memory.photoUrl.isNullOrEmpty()) {
+                cardMemoryPhoto.visibility = View.VISIBLE
+                Glide.with(this)
+                    .load(memory.photoUrl)
+                    .into(ivMemoryPhoto)
+            } else {
+                cardMemoryPhoto.visibility = View.GONE
+            }
+            
+            // Location
+            if (memory.latitude != null && memory.longitude != null) {
+                cardLocation.visibility = View.VISIBLE
+                tvLocationCoords.text = String.format(
+                    Locale.US,
+                    "%.4f° N, %.4f° E",
+                    memory.latitude,
+                    memory.longitude
+                )
+            } else {
+                cardLocation.visibility = View.GONE
+            }
+            
+            // Individual Delete
+            btnDeleteSingleMemory.setOnClickListener {
+                AlertDialog.Builder(this)
+                    .setTitle("Delete Memory")
+                    .setMessage("Are you sure you want to delete this memory?")
+                    .setPositiveButton("Delete") { _, _ ->
+                        viewModel.deleteSingleMemory(memory.id, challengeId)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+            
+            binding.memoriesContainer.addView(memoryView)
         }
     }
 }

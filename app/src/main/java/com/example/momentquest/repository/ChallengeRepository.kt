@@ -189,6 +189,56 @@ class ChallengeRepository {
         }
     }
 
+    suspend fun deleteSingleMemory(context: Context, memoryId: String, challengeId: String): Unit = withContext(Dispatchers.IO) {
+        val dbHelper = DatabaseHelper(context)
+        val db = dbHelper.writableDatabase
+        
+        // Find memory photo to delete first
+        val memories = getMemories(context, challengeId)
+        val found = memories.find { it.id == memoryId }
+        if (found != null) {
+            FileStorageHelper.deleteFile(found.photoUrl)
+        }
+        
+        db.beginTransaction()
+        try {
+            // 1. Delete memory
+            db.delete(
+                DatabaseHelper.TABLE_MEMORIES,
+                "${DatabaseHelper.COLUMN_ID} = ?",
+                arrayOf(memoryId)
+            )
+            
+            // 2. Check if there are any memories left
+            val cursor = db.query(
+                DatabaseHelper.TABLE_MEMORIES,
+                null,
+                "${DatabaseHelper.COLUMN_MEMORY_CHALLENGE_ID} = ?",
+                arrayOf(challengeId),
+                null, null, null
+            )
+            val hasLeft = cursor.count > 0
+            cursor.close()
+            
+            if (!hasLeft) {
+                // Reset challenge status to PENDING
+                val values = ContentValues().apply {
+                    put(DatabaseHelper.COLUMN_CHALLENGE_STATUS, "PENDING")
+                }
+                db.update(
+                    DatabaseHelper.TABLE_CHALLENGES,
+                    values,
+                    "${DatabaseHelper.COLUMN_ID} = ?",
+                    arrayOf(challengeId)
+                )
+            }
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+    }
+
     suspend fun deleteChallenge(context: Context, challengeId: String): Unit = withContext(Dispatchers.IO) {
         // Find memory photo paths to delete files first
         val memories = getMemories(context, challengeId)

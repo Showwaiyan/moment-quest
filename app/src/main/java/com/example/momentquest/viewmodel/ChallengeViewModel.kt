@@ -173,4 +173,21 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
+
+    fun deleteSingleMemory(memoryId: String, challengeId: String) {
+        _isLoading.value = true
+        _error.value = null
+        viewModelScope.launch {
+            try {
+                val context = getApplication<Application>().applicationContext
+                challengeRepository.deleteSingleMemory(context, memoryId, challengeId)
+                loadChallengeDetails(challengeId)
+                _saveSuccess.value = true
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Failed to delete memory"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 }
