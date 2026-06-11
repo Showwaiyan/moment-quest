@@ -23,6 +23,7 @@ class AddChallengeFragment : Fragment() {
     private val viewModel: ChallengeViewModel by viewModels()
     private val calendar = Calendar.getInstance()
     private var selectedDeadline: Long? = null
+    private var challengeId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +36,31 @@ class AddChallengeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        challengeId = arguments?.getString("challenge_id")
+
         setupSpinner()
         setupDatePicker()
         setupButtons()
         observeViewModel()
+
+        if (!challengeId.isNullOrEmpty()) {
+            binding.tvScreenTitle.text = "Edit Challenge"
+            binding.btnSetChallenge.text = "Update Challenge"
+            binding.etTitle.setText(arguments?.getString("title"))
+            
+            val category = arguments?.getString("category") ?: "Others"
+            val categories = arrayOf("Travel", "Learning", "Fitness", "Social", "Career", "Others")
+            val spinnerIndex = categories.indexOf(category).coerceAtLeast(0)
+            binding.spinnerCategory.setSelection(spinnerIndex)
+            
+            val deadlineVal = arguments?.getLong("deadline", 0L) ?: 0L
+            if (deadlineVal > 0L) {
+                selectedDeadline = deadlineVal
+                calendar.timeInMillis = deadlineVal
+                val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+                binding.etDeadline.setText(sdf.format(calendar.time))
+            }
+        }
     }
 
     private fun setupSpinner() {
@@ -86,14 +108,19 @@ class AddChallengeFragment : Fragment() {
         binding.btnSetChallenge.setOnClickListener {
             val title = binding.etTitle.text.toString()
             val category = binding.spinnerCategory.selectedItem.toString()
-            viewModel.addChallenge(title, category, selectedDeadline)
+            if (!challengeId.isNullOrEmpty()) {
+                viewModel.updateChallenge(challengeId!!, title, category, selectedDeadline)
+            } else {
+                viewModel.addChallenge(title, category, selectedDeadline)
+            }
         }
     }
 
     private fun observeViewModel() {
         viewModel.saveSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Toast.makeText(requireContext(), "Challenge set successfully!", Toast.LENGTH_SHORT).show()
+                val msg = if (!challengeId.isNullOrEmpty()) "Challenge updated successfully!" else "Challenge set successfully!"
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
             }
         }
@@ -113,5 +140,20 @@ class AddChallengeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(challengeId: String, title: String, category: String, deadline: Long?): AddChallengeFragment {
+            return AddChallengeFragment().apply {
+                arguments = Bundle().apply {
+                    putString("challenge_id", challengeId)
+                    putString("title", title)
+                    putString("category", category)
+                    if (deadline != null) {
+                        putLong("deadline", deadline)
+                    }
+                }
+            }
+        }
     }
 }

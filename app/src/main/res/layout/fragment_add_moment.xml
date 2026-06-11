@@ -32,6 +32,7 @@
                 android:layout_centerVertical="true" />
 
             <TextView
+                android:id="@+id/tvScreenTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Capture a Moment"
@@ -41,17 +42,35 @@
                 android:textStyle="bold"
                 android:layout_centerInParent="true" />
 
-            <ImageButton
-                android:id="@+id/btnSaveIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_check"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="8dp"
-                app:tint="@color/primary"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="Save" />
+                android:layout_centerVertical="true">
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_delete"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    app:tint="@color/error"
+                    android:contentDescription="Delete Moment"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/btnSaveIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_check"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    app:tint="@color/primary"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Save" />
+            </LinearLayout>
         </RelativeLayout>
 
         <!-- Inputs Card Group -->

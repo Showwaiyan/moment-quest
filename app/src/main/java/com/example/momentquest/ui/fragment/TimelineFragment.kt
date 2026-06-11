@@ -50,14 +50,11 @@ class TimelineFragment : Fragment() {
                 bottomSheet.show(parentFragmentManager, "AddMemoryBottomSheet")
             },
             onMomentClick = { moment ->
-                androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                    .setTitle("Delete Moment")
-                    .setMessage("Are you sure you want to delete this moment?")
-                    .setPositiveButton("Delete") { _, _ ->
-                        viewModel.deleteMoment(moment.id)
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .show()
+                val fragment = AddMomentFragment.newInstance(moment.id)
+                parentFragmentManager.beginTransaction()
+                    .replace(com.example.momentquest.R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         )
         binding.recyclerViewTimeline.layoutManager = LinearLayoutManager(requireContext())

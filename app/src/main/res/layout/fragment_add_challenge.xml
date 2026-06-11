@@ -32,6 +32,7 @@
                 android:layout_centerVertical="true" />
 
             <TextView
+                android:id="@+id/tvScreenTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Set a Challenge"
@@ -250,19 +251,19 @@
                 android:id="@+id/btnSetChallenge"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/primary"
+                android:elevation="4dp"
+                android:fontFamily="@font/space_grotesk"
                 android:text="Set Challenge"
+                android:textColor="@color/on_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
                 app:icon="@drawable/ic_flag"
-                app:iconSize="18dp"
                 app:iconGravity="textStart"
                 app:iconPadding="8dp"
-                android:backgroundTint="@color/primary"
-                android:textColor="@color/on_primary"
-                android:fontFamily="@font/space_grotesk"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                app:cornerRadius="12dp"
-                android:elevation="4dp"
-                android:layout_marginBottom="12dp" />
+                app:iconSize="18dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancel"

@@ -90,4 +90,26 @@ class MomentRepository {
         )
         db.close()
     }
+
+    suspend fun updateMoment(context: Context, moment: Moment): Unit = withContext(Dispatchers.IO) {
+        val dbHelper = DatabaseHelper(context)
+        val db = dbHelper.writableDatabase
+        
+        val values = ContentValues().apply {
+            put(DatabaseHelper.COLUMN_MOMENT_TITLE, moment.title)
+            put(DatabaseHelper.COLUMN_MOMENT_DESCRIPTION, moment.description)
+            put(DatabaseHelper.COLUMN_MOMENT_MOOD, moment.mood)
+            put(DatabaseHelper.COLUMN_MOMENT_PHOTO_PATH, moment.photoUrl)
+            put(DatabaseHelper.COLUMN_LATITUDE, moment.latitude)
+            put(DatabaseHelper.COLUMN_LONGITUDE, moment.longitude)
+        }
+        
+        db.update(
+            DatabaseHelper.TABLE_MOMENTS,
+            values,
+            "${DatabaseHelper.COLUMN_ID} = ?",
+            arrayOf(moment.id)
+        )
+        db.close()
+    }
 }

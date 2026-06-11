@@ -142,4 +142,35 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
+
+    fun updateChallenge(challengeId: String, title: String, category: String, deadline: Long?) {
+        if (title.isBlank()) {
+            _error.value = "Title cannot be empty"
+            return
+        }
+        _isLoading.value = true
+        _error.value = null
+        viewModelScope.launch {
+            try {
+                val context = getApplication<Application>().applicationContext
+                val challenges = challengeRepository.getChallenges(context)
+                val found = challenges.find { it.id == challengeId }
+                if (found != null) {
+                    val updated = found.copy(
+                        title = title.trim(),
+                        category = category,
+                        deadline = deadline
+                    )
+                    challengeRepository.updateChallenge(context, updated)
+                    _saveSuccess.value = true
+                } else {
+                    _error.value = "Challenge not found"
+                }
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Failed to update challenge"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 }

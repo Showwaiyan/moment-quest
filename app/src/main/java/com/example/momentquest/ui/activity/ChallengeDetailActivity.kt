@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.momentquest.MainActivity
 import com.example.momentquest.R
 import com.example.momentquest.databinding.ActivityChallengeDetailBinding
 import com.example.momentquest.model.Challenge
@@ -55,6 +56,21 @@ class ChallengeDetailActivity : AppCompatActivity() {
                 }
                 .setNegativeButton("Cancel", null)
                 .show()
+        }
+
+        binding.btnEdit.setOnClickListener {
+            val challenge = viewModel.challengeDetails.value
+            if (challenge != null) {
+                val intent = android.content.Intent(this, MainActivity::class.java).apply {
+                    putExtra("edit_challenge_id", challenge.id)
+                    putExtra("edit_challenge_title", challenge.title)
+                    putExtra("edit_challenge_category", challenge.category)
+                    putExtra("edit_challenge_deadline", challenge.deadline)
+                    flags = android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+                }
+                startActivity(intent)
+                finish()
+            }
         }
 
         binding.btnMarkComplete.setOnClickListener {

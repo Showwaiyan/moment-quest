@@ -49,6 +49,38 @@ class MainActivity : AppCompatActivity() {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
             updateUiForFragment(currentFragment)
         }
+
+        handleEditIntent(intent)
+    }
+
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleEditIntent(intent)
+    }
+
+    private fun handleEditIntent(intent: android.content.Intent?) {
+        if (intent == null) return
+        val editChallengeId = intent.getStringExtra("edit_challenge_id")
+        if (!editChallengeId.isNullOrEmpty()) {
+            val title = intent.getStringExtra("edit_challenge_title") ?: ""
+            val category = intent.getStringExtra("edit_challenge_category") ?: ""
+            val hasDeadline = intent.hasExtra("edit_challenge_deadline")
+            val deadline = if (hasDeadline) {
+                val dl = intent.getLongExtra("edit_challenge_deadline", 0L)
+                if (dl == 0L) null else dl
+            } else {
+                null
+            }
+
+            val fragment = AddChallengeFragment.newInstance(editChallengeId, title, category, deadline)
+            replaceFragment(fragment, addToBackStack = true)
+
+            intent.removeExtra("edit_challenge_id")
+            intent.removeExtra("edit_challenge_title")
+            intent.removeExtra("edit_challenge_category")
+            intent.removeExtra("edit_challenge_deadline")
+        }
     }
 
     private fun setupNavigation() {

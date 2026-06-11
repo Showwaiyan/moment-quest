@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.momentquest.databinding.FragmentAddMomentBinding
 import com.example.momentquest.viewmodel.MomentViewModel
 import android.content.Context
@@ -33,6 +34,9 @@ class AddMomentFragment : Fragment() {
     private var photoUri: Uri? = null
     private var latitude: Double? = null
     private var longitude: Double? = null
+    private var momentId: String? = null
+    private var clearPhoto: Boolean = false
+    private var isDeleting: Boolean = false
 
     // Permission Launchers
     private val requestLocationPermissionLauncher = registerForActivityResult(
@@ -65,6 +69,7 @@ class AddMomentFragment : Fragment() {
         ActivityResultContracts.TakePicture()
     ) { success ->
         if (success && photoUri != null) {
+            clearPhoto = false
             showPhotoPreview(photoUri!!)
         }
     }
@@ -74,6 +79,7 @@ class AddMomentFragment : Fragment() {
     ) { uri ->
         uri?.let {
             photoUri = it
+            clearPhoto = false
             showPhotoPreview(it)
         }
     }
@@ -89,9 +95,16 @@ class AddMomentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        momentId = arguments?.getString("moment_id")
+
         setupButtons()
         observeViewModel()
-        checkLocationPermission()
+
+        if (!momentId.isNullOrEmpty()) {
+            viewModel.loadMomentDetails(momentId!!)
+        } else {
+            checkLocationPermission()
+        }
     }
 
     private fun checkLocationPermission() {
@@ -205,7 +218,6 @@ class AddMomentFragment : Fragment() {
         }
 
         binding.photoContainer.setOnClickListener {
-            // Ask user for Camera or Gallery
             val options = arrayOf("Take Photo", "Choose from Gallery")
             android.app.AlertDialog.Builder(requireContext())
                 .setTitle("Add Photo")
@@ -220,6 +232,7 @@ class AddMomentFragment : Fragment() {
 
         binding.btnRemovePhoto.setOnClickListener {
             photoUri = null
+            clearPhoto = true
             binding.ivPhotoPreview.visibility = View.GONE
             binding.photoPlaceholder.visibility = View.VISIBLE
             binding.photoActions.visibility = View.GONE
@@ -245,7 +258,58 @@ class AddMomentFragment : Fragment() {
             else -> "Happy"
         }
 
-        viewModel.addMoment(title, description, mood, photoUri, latitude, longitude)
+        if (!momentId.isNullOrEmpty()) {
+            viewModel.updateMoment(momentId!!, title, description, mood, photoUri, clearPhoto, latitude, longitude)
+        } else {
+            viewModel.addMoment(title, description, mood, photoUri, latitude, longitude)
+        }
+    }
+
+    private fun bindMomentToViews(moment: com.example.momentquest.model.Moment) {
+        binding.tvScreenTitle.text = "Edit Moment"
+        binding.btnSave.text = "Update Moment"
+        binding.etTitle.setText(moment.title)
+        binding.etDescription.setText(moment.description)
+        
+        val moodId = when (moment.mood) {
+            "Grateful" -> com.example.momentquest.R.id.chipGrateful
+            "Surprised" -> com.example.momentquest.R.id.chipSurprised
+            "Reflective" -> com.example.momentquest.R.id.chipReflective
+            else -> com.example.momentquest.R.id.chipHappy
+        }
+        binding.chipGroupMood.check(moodId)
+        
+        if (!moment.photoUrl.isNullOrEmpty()) {
+            val file = java.io.File(moment.photoUrl)
+            if (file.exists()) {
+                photoUri = android.net.Uri.fromFile(file)
+                showPhotoPreview(photoUri!!)
+            }
+        }
+        
+        if (moment.latitude != null && moment.longitude != null) {
+            latitude = moment.latitude
+            longitude = moment.longitude
+            binding.tvLocationCoords.text = String.format(
+                Locale.US,
+                "Coords: %.4f° N, %.4f° E",
+                latitude,
+                longitude
+            )
+        }
+
+        binding.btnDelete.visibility = View.VISIBLE
+        binding.btnDelete.setOnClickListener {
+            android.app.AlertDialog.Builder(requireContext())
+                .setTitle("Delete Moment")
+                .setMessage("Are you sure you want to delete this moment?")
+                .setPositiveButton("Delete") { _, _ ->
+                    isDeleting = true
+                    viewModel.deleteMoment(moment.id)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
     }
 
     private fun checkCameraPermission() {
@@ -279,9 +343,20 @@ class AddMomentFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.saveSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Toast.makeText(requireContext(), "Moment captured successfully!", Toast.LENGTH_SHORT).show()
+                val msg = if (isDeleting) {
+                    "Moment deleted successfully!"
+                } else if (!momentId.isNullOrEmpty()) {
+                    "Moment updated successfully!"
+                } else {
+                    "Moment captured successfully!"
+                }
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
             }
+        }
+
+        viewModel.momentDetails.observe(viewLifecycleOwner) { moment ->
+            moment?.let { bindMomentToViews(it) }
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -299,5 +374,15 @@ class AddMomentFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(momentId: String): AddMomentFragment {
+            return AddMomentFragment().apply {
+                arguments = Bundle().apply {
+                    putString("moment_id", momentId)
+                }
+            }
+        }
     }
 }
