@@ -9,10 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.example.momentquest.databinding.ItemChallengeBinding
 import com.example.momentquest.databinding.ItemMomentBinding
 import com.example.momentquest.model.TimelineItem
 import com.example.momentquest.ui.activity.ChallengeDetailActivity
+import com.example.momentquest.util.GeocoderHelper
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -112,7 +116,11 @@ class TimelineAdapter(
     inner class MomentViewHolder(private val binding: ItemMomentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private var geocodeJob: kotlinx.coroutines.Job? = null
+
         fun bind(moment: com.example.momentquest.model.Moment) {
+            geocodeJob?.cancel()
+
             binding.tvTitle.text = moment.title
             binding.tvDescription.text = moment.description
             
@@ -144,6 +152,18 @@ class TimelineAdapter(
                     moment.latitude,
                     moment.longitude
                 )
+
+                val lifecycleOwner = binding.root.findViewTreeLifecycleOwner()
+                if (lifecycleOwner != null) {
+                    geocodeJob = lifecycleOwner.lifecycleScope.launch {
+                        val address = GeocoderHelper.getAddressFromLocation(
+                            binding.root.context,
+                            moment.latitude,
+                            moment.longitude
+                        )
+                        binding.tvLocation.text = address
+                    }
+                }
             } else {
                 binding.locationLayout.visibility = View.GONE
             }

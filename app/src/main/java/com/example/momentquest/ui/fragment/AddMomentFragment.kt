@@ -25,6 +25,8 @@ import com.google.android.gms.location.Priority
 import java.io.File
 import java.util.Locale
 import android.util.Log
+import kotlinx.coroutines.launch
+import com.example.momentquest.util.GeocoderHelper
 
 class AddMomentFragment : Fragment() {
     private val TAG = "AddMomentFragment"
@@ -138,6 +140,16 @@ class AddMomentFragment : Fragment() {
             latitude,
             longitude
         )
+        viewLifecycleOwner.lifecycleScope.launch {
+            val address = GeocoderHelper.getAddressFromLocation(requireContext(), location.latitude, location.longitude)
+            binding.tvLocationCoords.text = String.format(
+                Locale.US,
+                "Coords: %.4f° N, %.4f° E\nAddress: %s",
+                latitude,
+                longitude,
+                address
+            )
+        }
     }
 
     private fun requestNativeLocationUpdate() {
@@ -331,6 +343,16 @@ class AddMomentFragment : Fragment() {
                 latitude,
                 longitude
             )
+            viewLifecycleOwner.lifecycleScope.launch {
+                val address = GeocoderHelper.getAddressFromLocation(requireContext(), moment.latitude, moment.longitude)
+                binding.tvLocationCoords.text = String.format(
+                    Locale.US,
+                    "Coords: %.4f° N, %.4f° E\nAddress: %s",
+                    latitude,
+                    longitude,
+                    address
+                )
+            }
         }
 
         binding.btnDelete.visibility = View.VISIBLE

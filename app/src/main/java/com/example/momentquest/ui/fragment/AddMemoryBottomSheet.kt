@@ -24,6 +24,9 @@ import com.google.android.gms.location.Priority
 import java.io.File
 import java.util.Locale
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.example.momentquest.util.GeocoderHelper
 
 class AddMemoryBottomSheet : BottomSheetDialogFragment() {
 
@@ -133,6 +136,16 @@ class AddMemoryBottomSheet : BottomSheetDialogFragment() {
             latitude,
             longitude
         )
+        viewLifecycleOwner.lifecycleScope.launch {
+            val address = GeocoderHelper.getAddressFromLocation(requireContext(), location.latitude, location.longitude)
+            binding.tvLocationCoords.text = String.format(
+                Locale.US,
+                "Coords: %.4f° N, %.4f° E\nAddress: %s",
+                latitude,
+                longitude,
+                address
+            )
+        }
     }
 
     private fun requestNativeLocationUpdate() {

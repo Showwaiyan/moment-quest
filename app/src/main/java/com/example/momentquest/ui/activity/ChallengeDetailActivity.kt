@@ -14,6 +14,8 @@ import com.example.momentquest.model.Challenge
 import com.example.momentquest.model.Memory
 import com.example.momentquest.ui.fragment.AddMemoryBottomSheet
 import com.example.momentquest.viewmodel.ChallengeViewModel
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -251,6 +253,14 @@ class ChallengeDetailActivity : AppCompatActivity() {
                     memory.latitude,
                     memory.longitude
                 )
+                lifecycleScope.launch {
+                    val address = com.example.momentquest.util.GeocoderHelper.getAddressFromLocation(
+                        this@ChallengeDetailActivity,
+                        memory.latitude,
+                        memory.longitude
+                    )
+                    tvLocationCoords.text = address
+                }
             } else {
                 cardLocation.visibility = View.GONE
             }
