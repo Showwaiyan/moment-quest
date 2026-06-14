@@ -17,6 +17,9 @@ import com.example.momentquest.ui.fragment.AddChallengeFragment
 import com.example.momentquest.ui.fragment.AddMomentFragment
 import com.example.momentquest.ui.fragment.StatsFragment
 import com.example.momentquest.ui.fragment.TimelineFragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.example.momentquest.repository.MockDataHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +45,17 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             replaceFragment(TimelineFragment())
             updateBottomNavStyles(R.id.btnTabTimeline)
+        }
+
+        // Initialize mock data asynchronously on first launch
+        lifecycleScope.launch {
+            val initialized = MockDataHelper.initializeMockDataIfNeeded(this@MainActivity)
+            if (initialized) {
+                val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+                if (currentFragment is TimelineFragment) {
+                    currentFragment.onResume() // Triggers viewModel.loadTimeline() to refresh the feed
+                }
+            }
         }
 
         // Listen for back stack changes to show/hide bottom nav and FAB
