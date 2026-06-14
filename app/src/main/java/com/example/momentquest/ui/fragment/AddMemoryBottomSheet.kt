@@ -136,16 +136,6 @@ class AddMemoryBottomSheet : BottomSheetDialogFragment() {
             latitude,
             longitude
         )
-        viewLifecycleOwner.lifecycleScope.launch {
-            val address = GeocoderHelper.getAddressFromLocation(requireContext(), location.latitude, location.longitude)
-            binding.tvLocationCoords.text = String.format(
-                Locale.US,
-                "Coords: %.4f° N, %.4f° E\nAddress: %s",
-                latitude,
-                longitude,
-                address
-            )
-        }
     }
 
     private fun requestNativeLocationUpdate() {
@@ -250,6 +240,19 @@ class AddMemoryBottomSheet : BottomSheetDialogFragment() {
     private fun setupButtons() {
         binding.btnClose.setOnClickListener {
             dismiss()
+        }
+
+        binding.tvLocationCoords.setOnClickListener {
+            val lat = latitude
+            val lng = longitude
+            if (lat != null && lng != null) {
+                GeocoderHelper.showAddressDialog(
+                    requireContext(),
+                    lat,
+                    lng,
+                    viewLifecycleOwner.lifecycleScope
+                )
+            }
         }
 
         binding.photoContainer.setOnClickListener {

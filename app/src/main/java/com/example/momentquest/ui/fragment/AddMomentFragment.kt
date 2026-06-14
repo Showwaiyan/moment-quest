@@ -140,16 +140,6 @@ class AddMomentFragment : Fragment() {
             latitude,
             longitude
         )
-        viewLifecycleOwner.lifecycleScope.launch {
-            val address = GeocoderHelper.getAddressFromLocation(requireContext(), location.latitude, location.longitude)
-            binding.tvLocationCoords.text = String.format(
-                Locale.US,
-                "Coords: %.4f° N, %.4f° E\nAddress: %s",
-                latitude,
-                longitude,
-                address
-            )
-        }
     }
 
     private fun requestNativeLocationUpdate() {
@@ -256,6 +246,19 @@ class AddMomentFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+        binding.tvLocationCoords.setOnClickListener {
+            val lat = latitude
+            val lng = longitude
+            if (lat != null && lng != null) {
+                GeocoderHelper.showAddressDialog(
+                    requireContext(),
+                    lat,
+                    lng,
+                    viewLifecycleOwner.lifecycleScope
+                )
+            }
+        }
+
         binding.photoContainer.setOnClickListener {
             val options = arrayOf("Take Photo", "Choose from Gallery")
             android.app.AlertDialog.Builder(requireContext())
@@ -343,16 +346,6 @@ class AddMomentFragment : Fragment() {
                 latitude,
                 longitude
             )
-            viewLifecycleOwner.lifecycleScope.launch {
-                val address = GeocoderHelper.getAddressFromLocation(requireContext(), moment.latitude, moment.longitude)
-                binding.tvLocationCoords.text = String.format(
-                    Locale.US,
-                    "Coords: %.4f° N, %.4f° E\nAddress: %s",
-                    latitude,
-                    longitude,
-                    address
-                )
-            }
         }
 
         binding.btnDelete.visibility = View.VISIBLE

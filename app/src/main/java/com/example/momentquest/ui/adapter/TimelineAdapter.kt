@@ -116,11 +116,7 @@ class TimelineAdapter(
     inner class MomentViewHolder(private val binding: ItemMomentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private var geocodeJob: kotlinx.coroutines.Job? = null
-
         fun bind(moment: com.example.momentquest.model.Moment) {
-            geocodeJob?.cancel()
-
             binding.tvTitle.text = moment.title
             binding.tvDescription.text = moment.description
             
@@ -153,15 +149,15 @@ class TimelineAdapter(
                     moment.longitude
                 )
 
-                val lifecycleOwner = binding.root.findViewTreeLifecycleOwner()
-                if (lifecycleOwner != null) {
-                    geocodeJob = lifecycleOwner.lifecycleScope.launch {
-                        val address = GeocoderHelper.getAddressFromLocation(
+                binding.locationLayout.setOnClickListener {
+                    val lifecycleOwner = binding.root.findViewTreeLifecycleOwner()
+                    if (lifecycleOwner != null) {
+                        GeocoderHelper.showAddressDialog(
                             binding.root.context,
                             moment.latitude,
-                            moment.longitude
+                            moment.longitude,
+                            lifecycleOwner.lifecycleScope
                         )
-                        binding.tvLocation.text = address
                     }
                 }
             } else {

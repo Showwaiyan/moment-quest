@@ -253,13 +253,13 @@ class ChallengeDetailActivity : AppCompatActivity() {
                     memory.latitude,
                     memory.longitude
                 )
-                lifecycleScope.launch {
-                    val address = com.example.momentquest.util.GeocoderHelper.getAddressFromLocation(
+                cardLocation.setOnClickListener {
+                    com.example.momentquest.util.GeocoderHelper.showAddressDialog(
                         this@ChallengeDetailActivity,
                         memory.latitude,
-                        memory.longitude
+                        memory.longitude,
+                        lifecycleScope
                     )
-                    tvLocationCoords.text = address
                 }
             } else {
                 cardLocation.visibility = View.GONE
