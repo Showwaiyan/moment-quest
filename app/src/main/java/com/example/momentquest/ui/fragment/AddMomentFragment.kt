@@ -24,8 +24,10 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import java.io.File
 import java.util.Locale
+import android.util.Log
 
 class AddMomentFragment : Fragment() {
+    private val TAG = "AddMomentFragment"
 
     private var _binding: FragmentAddMomentBinding? = null
     private val binding get() = _binding!!
@@ -112,13 +114,16 @@ class AddMomentFragment : Fragment() {
     }
 
     private fun checkLocationPermission() {
+        Log.d(TAG, "checkLocationPermission: Checking ACCESS_FINE_LOCATION permission.")
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
+            Log.d(TAG, "checkLocationPermission: Permission granted. Fetching location.")
             fetchLocation()
         } else {
+            Log.d(TAG, "checkLocationPermission: Permission not granted. Launching request launcher.")
             requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
@@ -126,6 +131,7 @@ class AddMomentFragment : Fragment() {
     private fun onLocationFound(location: Location) {
         latitude = location.latitude
         longitude = location.longitude
+        Log.d(TAG, "onLocationFound: Coordinates resolved. Lat: $latitude, Lng: $longitude")
         binding.tvLocationCoords.text = String.format(
             Locale.US,
             "Coords: %.4f° N, %.4f° E",
@@ -135,16 +141,19 @@ class AddMomentFragment : Fragment() {
     }
 
     private fun requestNativeLocationUpdate() {
+        Log.d(TAG, "requestNativeLocationUpdate: Initiating fallback native LocationManager update.")
         try {
             val context = requireContext()
             val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
             if (locationManager == null) {
+                Log.w(TAG, "requestNativeLocationUpdate: LocationManager was null.")
                 binding.tvLocationCoords.text = "GPS active, but no location fix."
                 return
             }
 
             val providers = locationManager.getProviders(true)
             if (providers.isEmpty()) {
+                Log.w(TAG, "requestNativeLocationUpdate: No enabled providers found.")
                 binding.tvLocationCoords.text = "Location services are disabled."
                 return
             }
@@ -156,9 +165,11 @@ class AddMomentFragment : Fragment() {
             } else {
                 providers.first()
             }
+            Log.d(TAG, "requestNativeLocationUpdate: Using provider '$provider' for native request.")
 
             locationManager.requestSingleUpdate(provider, object : LocationListener {
                 override fun onLocationChanged(location: Location) {
+                    Log.d(TAG, "requestNativeLocationUpdate callback: Location retrieved.")
                     onLocationFound(location)
                 }
                 override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
@@ -167,13 +178,16 @@ class AddMomentFragment : Fragment() {
             }, android.os.Looper.getMainLooper())
 
         } catch (e: SecurityException) {
+            Log.e(TAG, "requestNativeLocationUpdate: SecurityException caught due to location permissions.", e)
             binding.tvLocationCoords.text = "Location permission required."
         } catch (e: Exception) {
+            Log.e(TAG, "requestNativeLocationUpdate: Exception caught during native location update.", e)
             binding.tvLocationCoords.text = "GPS active, but no location fix."
         }
     }
 
     private fun fetchLocation() {
+        Log.d(TAG, "fetchLocation: Starting Fused Location Provider client retrieval.")
         try {
             val context = requireContext()
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -181,8 +195,10 @@ class AddMomentFragment : Fragment() {
             // 1. Try Google Fused Location lastLocation
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
+                    Log.d(TAG, "fetchLocation: Last known location found via Fused Provider.")
                     onLocationFound(location)
                 } else {
+                    Log.d(TAG, "fetchLocation: Last known location was null. Querying fallback providers.")
                     // 2. Try Native LocationManager lastKnownLocation
                     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
                     val gpsLoc = try { locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER) } catch (e: Exception) { null }
@@ -190,28 +206,35 @@ class AddMomentFragment : Fragment() {
                     
                     val bestLocation = gpsLoc ?: netLoc
                     if (bestLocation != null) {
+                        Log.d(TAG, "fetchLocation: Fallback last known location found from local manager.")
                         onLocationFound(bestLocation)
                     } else {
                         // 3. Force request updates
+                        Log.d(TAG, "fetchLocation: No cached locations. Forcing high-accuracy fresh location request.")
                         binding.tvLocationCoords.text = "GPS active, fetching fresh fix..."
                         
                         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
                             .addOnSuccessListener { freshLocation ->
                                 if (freshLocation != null) {
+                                    Log.d(TAG, "fetchLocation: Fresh location resolved.")
                                     onLocationFound(freshLocation)
                                 } else {
+                                    Log.w(TAG, "fetchLocation: Fresh location was null. Invoking requestNativeLocationUpdate.")
                                     requestNativeLocationUpdate()
                                 }
                             }
-                            .addOnFailureListener {
+                            .addOnFailureListener { exception ->
+                                Log.e(TAG, "fetchLocation: Failed to fetch fresh location.", exception)
                                 requestNativeLocationUpdate()
                             }
                     }
                 }
-            }.addOnFailureListener {
+            }.addOnFailureListener { exception ->
+                Log.e(TAG, "fetchLocation: Fused client lastLocation failed. Querying native update.", exception)
                 requestNativeLocationUpdate()
             }
         } catch (e: SecurityException) {
+            Log.e(TAG, "fetchLocation: SecurityException caught due to location permissions.", e)
             binding.tvLocationCoords.text = "Location permission required."
         }
     }
