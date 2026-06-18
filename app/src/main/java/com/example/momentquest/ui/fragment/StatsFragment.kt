@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.momentquest.databinding.FragmentStatsBinding
 import com.example.momentquest.viewmodel.StatsViewModel
+import com.example.momentquest.ui.fragment.UsabilityDashboardBottomSheet
 import java.util.Locale
 
 class StatsFragment : Fragment() {
@@ -30,7 +31,8 @@ class StatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSettings.setOnClickListener {
-            Toast.makeText(requireContext(), "Settings option coming soon!", Toast.LENGTH_SHORT).show()
+            val bottomSheet = UsabilityDashboardBottomSheet()
+            bottomSheet.show(parentFragmentManager, "UsabilityDashboardBottomSheet")
         }
 
         observeViewModel()

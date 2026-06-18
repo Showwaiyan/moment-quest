@@ -8,12 +8,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         private const val DATABASE_NAME = "momentquest.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
 
         // Tables
         const val TABLE_CHALLENGES = "challenges"
         const val TABLE_MOMENTS = "moments"
         const val TABLE_MEMORIES = "memories"
+        const val TABLE_USABILITY_RESULTS = "usability_results"
 
         // Common columns
         const val COLUMN_ID = "id"
@@ -39,6 +40,14 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val COLUMN_MEMORY_NOTES = "notes"
         const val COLUMN_MEMORY_PHOTO_PATH = "photoPath"
         const val COLUMN_MEMORY_COMPLETED_AT = "completedAt"
+
+        // Usability Results Table Columns
+        const val COLUMN_RESULT_PARTICIPANT = "participantName"
+        const val COLUMN_RESULT_VARIANT = "variant"
+        const val COLUMN_RESULT_TIME_MS = "timeMs"
+        const val COLUMN_RESULT_EASE_RATING = "easeRating"
+        const val COLUMN_RESULT_ERROR_COUNT = "errorCount"
+        const val COLUMN_RESULT_TIMESTAMP = "timestamp"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -79,9 +88,22 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             )
         """.trimIndent()
 
+        val createUsabilityResultsTable = """
+            CREATE TABLE $TABLE_USABILITY_RESULTS (
+                $COLUMN_ID TEXT PRIMARY KEY,
+                $COLUMN_RESULT_PARTICIPANT TEXT NOT NULL,
+                $COLUMN_RESULT_VARIANT TEXT NOT NULL,
+                $COLUMN_RESULT_TIME_MS INTEGER NOT NULL,
+                $COLUMN_RESULT_EASE_RATING INTEGER NOT NULL,
+                $COLUMN_RESULT_ERROR_COUNT INTEGER NOT NULL,
+                $COLUMN_RESULT_TIMESTAMP INTEGER NOT NULL
+            )
+        """.trimIndent()
+
         db.execSQL(createChallengesTable)
         db.execSQL(createMomentsTable)
         db.execSQL(createMemoriesTable)
+        db.execSQL(createUsabilityResultsTable)
     }
 
     override fun onConfigure(db: SQLiteDatabase) {
@@ -90,9 +112,25 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MEMORIES")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MOMENTS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_CHALLENGES")
-        onCreate(db)
+        if (oldVersion < 2) {
+            val createUsabilityResultsTable = """
+                CREATE TABLE $TABLE_USABILITY_RESULTS (
+                    $COLUMN_ID TEXT PRIMARY KEY,
+                    $COLUMN_RESULT_PARTICIPANT TEXT NOT NULL,
+                    $COLUMN_RESULT_VARIANT TEXT NOT NULL,
+                    $COLUMN_RESULT_TIME_MS INTEGER NOT NULL,
+                    $COLUMN_RESULT_EASE_RATING INTEGER NOT NULL,
+                    $COLUMN_RESULT_ERROR_COUNT INTEGER NOT NULL,
+                    $COLUMN_RESULT_TIMESTAMP INTEGER NOT NULL
+                )
+            """.trimIndent()
+            db.execSQL(createUsabilityResultsTable)
+        } else {
+            db.execSQL("DROP TABLE IF EXISTS $TABLE_MEMORIES")
+            db.execSQL("DROP TABLE IF EXISTS $TABLE_MOMENTS")
+            db.execSQL("DROP TABLE IF EXISTS $TABLE_CHALLENGES")
+            db.execSQL("DROP TABLE IF EXISTS $TABLE_USABILITY_RESULTS")
+            onCreate(db)
+        }
     }
 }

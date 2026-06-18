@@ -20,6 +20,11 @@ import com.example.momentquest.ui.fragment.TimelineFragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import com.example.momentquest.repository.MockDataHelper
+import com.example.momentquest.ui.activity.AddMomentActivity
+import com.example.momentquest.ui.fragment.AddMomentBottomSheet
+import com.example.momentquest.ui.fragment.UsabilityDashboardBottomSheet
+import com.example.momentquest.util.UsabilityTracker
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
@@ -147,7 +152,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnActionMoment.setOnClickListener {
             toggleSpeedDial()
-            replaceFragment(AddMomentFragment(), addToBackStack = true)
+            
+            if (UsabilityTracker.isTrackingEnabled(this)) {
+                UsabilityTracker.recordStartTime(this)
+            }
+
+            val variant = UsabilityTracker.getSelectedVariant(this)
+            if (variant == "A") {
+                val intent = Intent(this, AddMomentActivity::class.java)
+                startActivity(intent)
+            } else {
+                val bottomSheet = AddMomentBottomSheet.newInstance {
+                    val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+                    if (currentFragment is TimelineFragment) {
+                        currentFragment.onResume()
+                    }
+                }
+                bottomSheet.show(supportFragmentManager, "AddMomentBottomSheet")
+            }
         }
     }
 
@@ -161,6 +183,11 @@ class MainActivity : AppCompatActivity() {
                 updateBottomNavStyles(R.id.btnTabTimeline)
                 Toast.makeText(this, "Switched to Timeline. Tap search again to filter!", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnSettings.setOnClickListener {
+            val bottomSheet = UsabilityDashboardBottomSheet()
+            bottomSheet.show(supportFragmentManager, "UsabilityDashboardBottomSheet")
         }
     }
 

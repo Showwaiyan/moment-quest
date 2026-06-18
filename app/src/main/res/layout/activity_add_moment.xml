@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top AppBar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_arrow_back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="12dp"
+                app:tint="@color/primary"
+                android:contentDescription="Back"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tvScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Capture a Moment"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:textColor="@color/on_surface"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_delete"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    app:tint="@color/error"
+                    android:contentDescription="Delete Moment"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/btnSaveIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_check"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    app:tint="@color/primary"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Save" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Inputs Card Group -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/surface_container_lowest"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/outline_variant"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Title Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What happened?"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxBackgroundColor="@color/surface_container_low"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter a brief title..."
+                        android:textColor="@color/on_surface"
+                        android:textColorHint="@color/outline"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:inputType="textCapSentences"
+                        android:textSize="15sp"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Notes / Reflection Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notes / Reflection"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxBackgroundColor="@color/surface_container_low"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintEnabled="false"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:gravity="top"
+                        android:hint="Add details about your moment..."
+                        android:textColor="@color/on_surface"
+                        android:textColorHint="@color/outline"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:textSize="15sp"
+                        android:padding="14dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Mood Selector Field -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mood Tag"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupMood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipHappy"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😊 Happy"
+                        android:checked="true"
+                        app:chipCornerRadius="20dp"
+                        app:chipBackgroundColor="@color/mood_chip_bg"
+                        android:textColor="@color/mood_chip_text"
+                        app:chipStrokeColor="@color/mood_chip_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:checkedIconVisible="false" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipGrateful"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🙏 Grateful"
+                        app:chipCornerRadius="20dp"
+                        app:chipBackgroundColor="@color/mood_chip_bg"
+                        android:textColor="@color/mood_chip_text"
+                        app:chipStrokeColor="@color/mood_chip_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:checkedIconVisible="false" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSurprised"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😮 Surprised"
+                        app:chipCornerRadius="20dp"
+                        app:chipBackgroundColor="@color/mood_chip_bg"
+                        android:textColor="@color/mood_chip_text"
+                        app:chipStrokeColor="@color/mood_chip_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:checkedIconVisible="false" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipReflective"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🤔 Reflective"
+                        app:chipCornerRadius="20dp"
+                        app:chipBackgroundColor="@color/mood_chip_bg"
+                        android:textColor="@color/mood_chip_text"
+                        app:chipStrokeColor="@color/mood_chip_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:checkedIconVisible="false" />
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Media & Location Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <!-- Photo Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/surface_container"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardElevation="2dp">
+
+                <FrameLayout
+                    android:id="@+id/photoContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <!-- Placeholder -->
+                    <LinearLayout
+                        android:id="@+id/photoPlaceholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_camera"
+                            app:tint="@color/outline"
+                            android:contentDescription="Camera" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add Photo (Camera or Gallery)"
+                            android:textColor="@color/outline"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivPhotoPreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:contentDescription="Photo Preview" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Photo Actions (Retake and Remove) -->
+            <LinearLayout
+                android:id="@+id/photoActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/btnRetake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📷 Retake"
+                    android:textColor="@color/on_surface_variant"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:padding="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground" />
+
+                <TextView
+                    android:id="@+id/btnRemovePhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🗑️ Remove"
+                    android:textColor="@color/error"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:padding="8dp"
+                    android:layout_marginStart="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground" />
+            </LinearLayout>
+
+            <!-- Location Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/surface_container_lowest"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_category_icon_box"
+                        android:backgroundTint="@color/secondary_container">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/on_secondary_container"
+                            android:layout_gravity="center"
+                            android:contentDescription="Location Pin" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Location Info"
+                            android:fontFamily="@font/plus_jakarta_sans"
+                            android:textColor="@color/on_surface"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvLocationCoords"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fetching GPS coordinates..."
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- Auto-Detected Badge Pill -->
+                    <TextView
+                        android:id="@+id/gpsStatusDot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Auto-Detected"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textColor="@color/on_primary_fixed_variant"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_peak_badge"
+                        android:backgroundTint="@color/primary_fixed"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Save Button Footer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Save Moment"
+                app:icon="@drawable/ic_stats"
+                app:iconSize="18dp"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/on_primary"
+                android:fontFamily="@font/space_grotesk"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:cornerRadius="12dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

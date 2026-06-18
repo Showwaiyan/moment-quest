@@ -60,6 +60,19 @@
                     android:padding="12dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Search" />
+
+                <ImageView
+                    android:id="@+id/btnSettings"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/on_surface_variant"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="12dp"
+                    android:layout_marginStart="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Settings" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
